@@ -7,14 +7,18 @@
   --color-bg: #f0f4f8;
   --color-surface: rgba(255, 255, 255, 0.92);
   --color-card-bg: rgba(255, 255, 255, 0.78);
+  --color-bg-elevated: rgba(248, 251, 255, 0.9);
   --color-border: rgba(30, 41, 59, 0.12);
   --color-border-strong: rgba(30, 41, 59, 0.16);
   --color-text-primary: #1e293b;
   --color-text-secondary: #475569;
+  --color-text-tertiary: #64748b;
   --color-text-muted: #64748b;
   --color-accent: #3b82f6;
   --color-accent-bright: #1e293b;
   --color-accent-soft: rgba(59, 130, 246, 0.14);
+  --color-accent-dim: rgba(59, 130, 246, 0.28);
+  --color-surface-hover: rgba(226, 232, 240, 0.6);
   --color-shadow: rgba(15, 23, 42, 0.08);
   --color-surface-strong: #ffffff;
 }
@@ -56,12 +60,79 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.avatar-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.9);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.22), 0 0 20px 14px rgba(56, 189, 248, 0.12);
+}
+
+.group:hover .avatar-ring,
+.group:focus-within .avatar-ring {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.avatar-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.25);
+}
+
+.avatar-fallback {
+  transition: opacity 0.2s ease;
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: fade-loop 8s ease-in-out infinite;
+}
+
 body,
 button,
 input,
 textarea,
 select {
   font: inherit;
+}
+
+.animate-fade-loop {
+  animation: fade-loop 8s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes fade-loop {
+  0%,
+  20%,
+  80%,
+  100% {
+    opacity: 1;
+  }
+  40%,
+  60% {
+    opacity: 0.68;
+  }
+}
+
+@keyframes spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 :focus-visible {

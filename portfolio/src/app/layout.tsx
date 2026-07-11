@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { personal } from "@/data/resume";
+import { ThemeProvider } from "@/components/layout/ThemeProvider";
 
 const siteUrl = "https://aayushgnawali.dev";
 
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     default: `${personal.name} — ${personal.role}`,
     template: `%s — ${personal.name}`,
   },
-  description: personal.summary,
+  description: personal.tagline,
   keywords: [
     "Aayush Gnawali",
     "Backend Developer",
@@ -19,7 +20,6 @@ export const metadata: Metadata = {
     "DevOps Engineer",
     "DevSecOps",
     "AI/ML Engineer",
-    "MLOps",
     "Remote Software Engineer",
   ],
   authors: [{ name: personal.name, url: personal.github }],
@@ -55,14 +55,13 @@ const jsonLd = {
     "@type": "PostalAddress",
     addressLocality: personal.location,
   },
-  sameAs: [personal.github, personal.linkedin, personal.medium],
+  sameAs: [personal.github, personal.linkedin, personal.medium, personal.instagram].filter(Boolean),
   knowsAbout: [
     "Backend Development",
     "FastAPI",
     "DevOps",
     "DevSecOps",
     "Machine Learning",
-    "MLOps",
     "Python",
   ],
 };
@@ -81,14 +80,16 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-[var(--color-surface)] focus:border focus:border-[var(--color-border-strong)] focus:px-4 focus:py-2 focus:text-sm"
-        >
-          Skip to main content
-        </a>
-        <div className="grain-overlay" aria-hidden="true" />
-        {children}
+        <ThemeProvider>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-[var(--color-surface)] focus:border focus:border-[var(--color-border-strong)] focus:px-4 focus:py-2 focus:text-sm"
+          >
+            Skip to main content
+          </a>
+          <div className="grain-overlay" aria-hidden="true" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

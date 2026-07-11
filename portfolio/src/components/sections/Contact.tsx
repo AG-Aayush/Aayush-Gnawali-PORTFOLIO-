@@ -73,14 +73,15 @@ export function Contact() {
         <div className="grid gap-8 lg:grid-cols-[1.05fr_1.25fr]">
           <Reveal>
             <div className="grid gap-4">
-              <div className="flex flex-wrap gap-4">
+              <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {contactHandles.map(({ label, tagline, href, icon: Icon }) => (
                   <a
                     key={label}
                     href={href}
+                    aria-label={`${label}: ${tagline}`}
                     target={href.startsWith("http") ? "_blank" : undefined}
                     rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
-                    className="group flex min-w-[220px] flex-col gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/80 px-5 py-4 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-hover)]"
+                    className="group flex flex-col gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/80 px-5 py-4 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div>

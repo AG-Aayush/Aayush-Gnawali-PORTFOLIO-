@@ -124,7 +124,7 @@ export const projects: Project[] = [
     learned:
       "How to design rule-based recovery logic with a confidence threshold rather than a binary pass/fail, and how much observability (the metrics dashboard) matters for trusting an automated recovery system.",
     stack: ["Python", "Selenium", "Streamlit", "Automation", "Monitoring"],
-    github: "https://github.com/AG-Aayush",
+    github: "https://github.com/sobitchand/Selfhealing-system",
     featured: true,
   },
   {

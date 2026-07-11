@@ -17,7 +17,7 @@ Custom Domain (Pending Verification): [aayushgnawali.com.np](http://aayushgnawal
 
 ---
 
-##  Core Features & Visual Language
+## Core Features & Visual Language
 
 ### 1. Unified Responsive UX Architecture
 - **Adaptive Dark / Light Mechanics:**
@@ -37,7 +37,7 @@ Custom Domain (Pending Verification): [aayushgnawali.com.np](http://aayushgnawal
 
 ---
 
-##  Repository Directory Breakdown
+## Repository Directory Breakdown
 
 ```text
 AAYUSH-PORTFOLIO/             # Main Workspace Root
@@ -65,3 +65,54 @@ Navigate into your targeted project folder path and run:
 git clone [https://github.com/AG-Aayush/Aayush-Gnawali-PORTFOLIO-.git](https://github.com/AG-Aayush/Aayush-Gnawali-PORTFOLIO-.git)
 cd "Aayush-Gnawali-PORTFOLIO-/portfolio"
 npm install
+```[cite: 1]
+
+### 3. Launch Development Server
+```bash
+npm run dev
+```[cite: 1]
+Open [http://localhost:3000](http://localhost:3000) inside your web browser engine to explore the live local client environment[cite: 1].
+
+### 4. Compiling the Production Build
+To test framework compilation safety locally before shipping changes out to Vercel production servers:
+```bash
+npm run build
+npm run start
+```[cite: 1]
+
+---
+
+## 📄 Licensing & Permissions
+
+This repository is licensed under the **MIT License**[cite: 1]. 
+
+```text
+MIT License
+
+Copyright (c) 2026 Aayush Gnawali
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```[cite: 1]
+
+---
+
+## 📬 Contact & Networks
+- **Email:** mailto:aayushgnawali45@gmail.com[cite: 1]
+- **GitHub Profile:** [github.com/AG-Aayush](https://github.com/AG-Aayush)[cite: 1]
+- **LinkedIn:** [linkedin.com/in/aayushgnawali](https://www.linkedin.com/in/aayushgnawali)[cite: 1]

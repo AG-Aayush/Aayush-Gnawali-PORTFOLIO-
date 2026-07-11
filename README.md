@@ -50,7 +50,7 @@ AAYUSH-PORTFOLIO/             # Main Workspace Root
     ├── next.config.ts        # Framework Setup Routing System
     ├── tailwind.config.ts    # Extended Custom Theming Palettes
     └── package.json          # Node Dependencies Configuration
-```[cite: 1]
+```
 
 ---
 
@@ -65,7 +65,7 @@ Navigate into your targeted project folder path and run:
 git clone [https://github.com/AG-Aayush/Aayush-Gnawali-PORTFOLIO-.git](https://github.com/AG-Aayush/Aayush-Gnawali-PORTFOLIO-.git)
 cd "Aayush-Gnawali-PORTFOLIO-/portfolio"
 npm install
-```[cite: 1]
+```
 
 ### 3. Launch Development Server
 ```bash
@@ -78,7 +78,7 @@ To test framework compilation safety locally before shipping changes out to Verc
 ```bash
 npm run build
 npm run start
-```[cite: 1]
+```
 
 ---
 
@@ -108,7 +108,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-```[cite: 1]
+```
 
 ---
 

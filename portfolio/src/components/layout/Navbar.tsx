@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, Moon, SunMedium } from "lucide-react";
 import { personal } from "@/data/resume";
+import { useTheme } from "@/components/layout/ThemeProvider";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
@@ -19,7 +20,7 @@ export function Navbar() {
   const [activeId, setActiveId] = useState<string>("about");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 12);
@@ -27,22 +28,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    const storedTheme = window.localStorage.getItem("theme");
-    const initialTheme = storedTheme === "dark" ? "dark" : "light";
-    setTheme(initialTheme);
-    document.documentElement.classList.toggle("dark", initialTheme === "dark");
-  }, []);
-
-  const isDark = theme === "dark";
-
-  function toggleTheme() {
-    const nextTheme = isDark ? "light" : "dark";
-    setTheme(nextTheme);
-    document.documentElement.classList.toggle("dark", nextTheme === "dark");
-    window.localStorage.setItem("theme", nextTheme);
-  }
 
   useEffect(() => {
     const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(
@@ -114,9 +99,9 @@ export function Navbar() {
             type="button"
             onClick={toggleTheme}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)] text-[var(--color-text-secondary)] transition duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
-            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
           >
-            {isDark ? <SunMedium size={16} /> : <Moon size={16} />}
+            {theme === "light" ? <Moon size={16} /> : <SunMedium size={16} />}
           </button>
           <a
             href={personal.resumeFile}
@@ -165,13 +150,14 @@ export function Navbar() {
                   </a>
                 </li>
               ))}
-              <li className="pt-2">
+                    <li className="pt-2">
                 <button
                   type="button"
                   onClick={toggleTheme}
-                  className="font-mono-tag inline-flex items-center gap-2 rounded-md border border-[var(--color-border-strong)] px-3 py-2 text-xs text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
+                  className="font-mono-tag inline-flex items-center gap-2 rounded-md border border-[var(--color-border-strong)] px-3 py-2 text-xs text-[var(--color-text-secondary)] transition duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
                 >
-                  {isDark ? "Light mode" : "Dark mode"}
+                  {theme === "light" ? <Moon size={14} /> : <SunMedium size={14} />}
+                  {theme === "light" ? "Dark mode" : "Light mode"}
                 </button>
               </li>
               <li className="pt-2">

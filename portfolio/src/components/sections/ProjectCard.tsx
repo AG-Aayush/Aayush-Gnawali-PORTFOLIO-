@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, ExternalLink } from "lucide-react";
@@ -110,7 +111,19 @@ export function ProjectCard({
               <span className="h-3 w-3 rounded-full bg-[#f59e0b]" />
               <span className="h-3 w-3 rounded-full bg-[#10b981]" />
             </div>
-            <div className="h-[260px] rounded-[0.85rem] bg-[linear-gradient(135deg,#eef8ff_0%,#f8fbff_100%)] shadow-[inset_0_0_0_1px_rgba(15,23,42,0.04)]" />
+            {project.images && project.images.length > 0 ? (
+              <div className="relative h-[260px] overflow-hidden rounded-[0.85rem] bg-[linear-gradient(135deg,#eef8ff_0%,#f8fbff_100%)] shadow-[inset_0_0_0_1px_rgba(15,23,42,0.04)]">
+                <Image
+                  src={project.images[0]}
+                  alt={`${project.name} screenshot`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 480px"
+                  className="object-cover"
+                />
+              </div>
+            ) : (
+              <div className="h-[260px] rounded-[0.85rem] bg-[linear-gradient(135deg,#eef8ff_0%,#f8fbff_100%)] shadow-[inset_0_0_0_1px_rgba(15,23,42,0.04)]" />
+            )}
           </div>
         </div>
       </div>

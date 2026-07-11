@@ -94,6 +94,7 @@ export type Project = {
   stack: string[];
   github?: string;
   demo?: string;
+  images?: string[];
   featured: boolean;
 };
 
@@ -139,6 +140,7 @@ export const projects: Project[] = [
       "The gap between a model that scores well in a notebook and one that behaves sensibly in a live interface with real user input.",
     stack: ["Python", "Scikit-learn", "Streamlit", "Pandas", "NumPy"],
     demo: "https://house-price-prediction-california-6w6gf3ztnnqx76rybzdd8v.streamlit.app/",
+    images: ["/projects/project_images/house-prediction.png"],
     featured: true,
   },
   {
@@ -153,6 +155,7 @@ export const projects: Project[] = [
       "Practical performance tuning for real-time 3D in the browser: what's cheap to animate and what isn't.",
     stack: ["JavaScript", "Three.js", "GitHub Pages"],
     demo: "https://ag-aayush.github.io/pomodoro-3d/",
+    images: ["/projects/project_images/pomodoro.png"],
     featured: false,
   },
   {

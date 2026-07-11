@@ -10,32 +10,33 @@
 export const personal = {
   name: "Aayush Gnawali",
   firstName: "Aayush",
-  role: "Backend Engineer, DevOps & AI/ML",
+  role: "DevOps / DevSecOps, Backend Engineer & AI/ML",
   location: "Kathmandu, Nepal",
   tagline:
     "I build reliable backend systems and the automation that keeps them running.",
-  summary:
-    "Final-year Information Technology student focused on backend development, DevOps, and API engineering. I build Python backend systems, REST APIs, and authentication workflows with FastAPI and PostgreSQL, and I'm drawn to the infrastructure side of software — deployment, monitoring, and the tooling that makes systems self-sufficient.",
   email: "aayushgnawali45@gmail.com",
   github: "https://github.com/AG-Aayush",
   linkedin: "https://linkedin.com/in/aayushgnawali",
   medium: "https://articalgeek.medium.com/",
-  resumeFile: "/resume.pdf",
+  instagram: "https://www.instagram.com/ayushgnawali/",
+  profilePicture: "/Aayush.jpeg",
+  profilePictureDark: "/Aayush-profile.jpeg",
+  resumeFile: "/Aayush_Resume.pdf",
   availability: "open_to_work",
-  focusAreas: ["Backend Development", "DevOps", "DevSecOps", "AI/ML", "MLOps"],
+  focusAreas: ["Backend Development", "DevOps", "DevSecOps", "AI/ML"],
 } as const;
 
 export const about = {
   story: [
     "I'm a final-year B.E. Information Technology student at Everest Engineering College, and most of what I know about backend engineering I've learned by building things that had to actually stay up — an API that handles real authentication, a monitoring dashboard that has to reflect real state, a system that's supposed to notice when something breaks.",
     "That instinct is what pulled me toward DevOps and infrastructure. Writing an endpoint is one part of the job; making sure it deploys cleanly, recovers from failure, and can be reasoned about at 2am is the part I find genuinely interesting. I like the discipline of it — Linux fundamentals, containerization, CI/CD, version control — the unglamorous layer that everything else depends on.",
-    "In parallel, I've been building toward AI/ML and MLOps: training models, deploying them behind real interfaces, and thinking about how machine learning systems get operated, not just built. I care about the same things in both worlds — reliability, observability, and systems that fail predictably instead of silently.",
+    "In parallel, I've been building toward AI/ML: training models, deploying them behind real interfaces, and thinking about how machine learning systems get operated, not just built. I care about the same things in both worlds — reliability, observability, and systems that fail predictably instead of silently.",
     "I'm looking for remote opportunities where I can keep learning fast across backend, DevOps, and applied AI, and contribute to systems that other engineers can depend on.",
   ],
   highlights: [
     { label: "Focus", value: "Backend & Infrastructure" },
     { label: "Currently", value: "8th Semester, B.E. IT" },
-    { label: "Interested in", value: "DevSecOps · MLOps · Cloud" },
+    { label: "Interested in", value: "DevSecOps · Cloud" },
   ],
 } as const;
 
@@ -55,7 +56,7 @@ export const experience: ExperienceEntry[] = [
     id: "lego-tech",
     role: "DevOps Intern",
     org: "Lego Tech Pvt. Ltd.",
-    period: "2025",
+    period: "2026",
     summary:
       "Hands-on introduction to production DevOps practices — Linux, containerization, and CI/CD concepts in a live engineering environment.",
     points: [
@@ -70,7 +71,7 @@ export const experience: ExperienceEntry[] = [
     id: "e-digital-nepal",
     role: "Backend & QA Intern",
     org: "E-Digital Nepal",
-    period: "2025",
+    period: "2026",
     summary:
       "Backend contributions to a production ERP system, paired with QA responsibilities on the same release cycle.",
     points: [
@@ -245,6 +246,13 @@ export const certifications: Certification[] = [
     issuer: "Everest Engineering College",
     date: "2025",
     note: "Embedded systems and automation fundamentals.",
+  },
+  {
+    id: "devops-cloud-upskill",
+    name: "DevOps and Cloud Computing Training",
+    issuer: "Upskill Nepal",
+    date: "2026",
+    note: "Hands-on cloud and DevOps training covering deployment, automation, and infrastructure best practices.",
   },
 ];
 

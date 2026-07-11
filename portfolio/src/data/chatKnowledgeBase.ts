@@ -30,7 +30,7 @@ const knowledgeBase: KnowledgeEntry[] = [
   {
     id: "intro",
     triggers: ["tell me about", "who is", "about aayush", "introduce", "who are you working with"],
-    answer: () => `${personal.name} is a ${personal.role}. ${personal.summary}`,
+    answer: () => `${personal.name} is a ${personal.role}. ${personal.tagline}`,
   },
   {
     id: "technologies",
@@ -75,12 +75,12 @@ const knowledgeBase: KnowledgeEntry[] = [
   },
   {
     id: "ai-ml",
-    triggers: ["ai experience", "machine learning", "ai/ml", "ml experience", "pytorch", "mlops"],
+    triggers: ["ai experience", "machine learning", "ai/ml", "ml experience", "pytorch"],
     answer: () => {
       const ml = skills.find((s) => s.id === "ai-ml")?.skills ?? [];
       return `He's worked with ${list(
         ml
-      )}, including deploying a real model — his House Price Prediction project takes a Scikit-learn regression model from notebook to a live Streamlit interface with real-time inference. He's actively building toward MLOps: not just training models, but operating them.`;
+      )}, including deploying a real model — his House Price Prediction project takes a Scikit-learn regression model from notebook to a live Streamlit interface with real-time inference. He's actively building toward applied AI/ML: not just training models, but operating them.`;
     },
   },
   {
@@ -95,7 +95,7 @@ const knowledgeBase: KnowledgeEntry[] = [
     id: "career-goals",
     triggers: ["career goals", "goals", "what does he want", "future", "long term"],
     answer: () =>
-      `${personal.firstName} is looking for remote backend and DevOps roles now, with a longer-term focus on DevSecOps, MLOps, and cloud infrastructure. He's specifically drawn to systems that fail predictably and can be operated reliably, not just built.`,
+      `${personal.firstName} is looking for remote backend and DevOps roles now, with a longer-term focus on DevSecOps and cloud infrastructure. He's specifically drawn to systems that fail predictably and can be operated reliably, not just built.`,
   },
   {
     id: "education",

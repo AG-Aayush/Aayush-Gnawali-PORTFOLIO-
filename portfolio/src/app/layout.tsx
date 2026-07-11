@@ -30,11 +30,18 @@ export const metadata: Metadata = {
     title: `${personal.name} — ${personal.role}`,
     description: personal.tagline,
     siteName: `${personal.name} — Portfolio`,
+    images: [
+      {
+        url: `${siteUrl}${personal.profilePictureDark ?? personal.profilePicture}`,
+        alt: `${personal.name} — ${personal.role}`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${personal.name} — ${personal.role}`,
     description: personal.tagline,
+    images: [`${siteUrl}${personal.profilePicture}`],
   },
   robots: {
     index: true,

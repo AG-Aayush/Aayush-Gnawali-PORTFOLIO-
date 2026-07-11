@@ -8,12 +8,37 @@ import { Reveal } from "@/components/ui/Reveal";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { GithubIcon, LinkedinIcon, MediumIcon, InstagramIcon } from "@/components/ui/BrandIcons";
 
-const contactLinks = [
-  { label: "Email", value: personal.email, href: `mailto:${personal.email}`, icon: Mail },
-  { label: "GitHub", value: personal.github.replace("https://", ""), href: personal.github, icon: GithubIcon },
-  { label: "LinkedIn", value: personal.linkedin.replace("https://", ""), href: personal.linkedin, icon: LinkedinIcon },
-  { label: "Medium", value: personal.medium.replace("https://", ""), href: personal.medium, icon: MediumIcon },
-  { label: "Instagram", value: personal.instagram?.replace("https://", ""), href: personal.instagram ?? "https://www.instagram.com/ayushgnawali/", icon: InstagramIcon },
+const contactHandles = [
+  {
+    label: "Email Me",
+    tagline: "SAY HELLO",
+    href: `mailto:${personal.email}`,
+    icon: Mail,
+  },
+  {
+    label: "GitHub",
+    tagline: "CODE & REPOSITORIES",
+    href: personal.github,
+    icon: GithubIcon,
+  },
+  {
+    label: "LinkedIn",
+    tagline: "PROFESSIONAL NETWORK",
+    href: personal.linkedin,
+    icon: LinkedinIcon,
+  },
+  {
+    label: "Medium",
+    tagline: "PUBLISH & FOLLOW",
+    href: personal.medium,
+    icon: MediumIcon,
+  },
+  {
+    label: "Instagram",
+    tagline: "VISUAL UPDATES",
+    href: personal.instagram ?? "https://www.instagram.com/ayushgnawali/",
+    icon: InstagramIcon,
+  },
 ];
 
 export function Contact() {
@@ -45,69 +70,32 @@ export function Contact() {
           description="Open to remote backend, DevOps, DevSecOps, and AI/ML opportunities. The fastest way to reach me is email."
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_1.25fr]">
           <Reveal>
-            <div className="space-y-3">
-              {contactLinks.map(({ label, value, href, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
-                  className="group flex items-center justify-between rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)]/50 px-5 py-4 transition-colors duration-200 hover:border-[var(--color-accent-dim)] hover:bg-[var(--color-surface-hover)]"
-                >
-                  <span className="flex items-center gap-3">
-                    <Icon size={16} className="text-[var(--color-accent-bright)]" />
-                    <span>
-                      <span className="block text-xs text-[var(--color-text-tertiary)]">
-                        {label}
-                      </span>
-                      <span className="block text-sm text-[var(--color-text-primary)]">
-                        {value}
-                      </span>
-                    </span>
-                  </span>
-                  <ArrowUpRight
-                    size={15}
-                    className="text-[var(--color-text-tertiary)] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--color-text-primary)]"
-                  />
-                </a>
-              ))}
-            </div>
-
-            <div className="grid gap-4 pt-6 sm:grid-cols-2">
-              <a
-                href={personal.medium}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="group flex items-center gap-3 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
-              >
-                <MediumIcon size={22} className="text-[var(--color-accent-bright)]" />
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-tertiary)]">
-                    Publish & follow
-                  </p>
-                  <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                    Medium
-                  </p>
-                </div>
-              </a>
-              <a
-                href={personal.instagram}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="group flex items-center gap-3 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
-              >
-                <InstagramIcon size={22} className="text-[var(--color-accent-bright)]" />
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-tertiary)]">
-                    Visual updates
-                  </p>
-                  <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                    Instagram
-                  </p>
-                </div>
-              </a>
+            <div className="grid gap-4">
+              <div className="flex flex-wrap gap-4">
+                {contactHandles.map(({ label, tagline, href, icon: Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
+                    className="group flex min-w-[220px] flex-col gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/80 px-5 py-4 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-hover)]"
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--color-text-tertiary)]">
+                          {tagline}
+                        </p>
+                        <p className="mt-1 text-base font-semibold text-[var(--color-text-primary)]">
+                          {label}
+                        </p>
+                      </div>
+                      <Icon size={22} className="text-[var(--color-accent-bright)]" />
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
           </Reveal>
 
@@ -192,9 +180,9 @@ export function Contact() {
 
                   <button
                     type="submit"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-[var(--color-accent-bright)] sm:w-auto"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-[var(--color-accent)] px-5 py-2.5 text-sm font-medium text-white transition duration-200 hover:opacity-95 hover:scale-105 focus:outline-none sm:w-auto"
                   >
-                    Send message
+                    <span className="relative z-10">Send message</span>
                     <ArrowUpRight size={15} />
                   </button>
                 </form>

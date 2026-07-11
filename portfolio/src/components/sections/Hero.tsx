@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
 import { personal } from "@/data/resume";
 import { useTheme } from "@/components/layout/ThemeProvider";
@@ -38,21 +39,30 @@ export function Hero() {
             href={profilePicture}
             target="_blank"
             rel="noopener noreferrer"
-            initial={{ opacity: 0, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
-            className="group mb-6 relative block h-28 w-28 overflow-hidden rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] shadow-[0_25px_60px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-110"
+            aria-label={`${personal.name} profile picture — open full image`}
+            initial={useReducedMotion() ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
+            animate={useReducedMotion() ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+            transition={useReducedMotion() ? { duration: 0 } : { duration: 0.45, ease: "easeOut" }}
+            className="group mb-6 relative block h-28 w-28 overflow-hidden rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] shadow-[0_25px_60px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
           >
             <span className="avatar-ring pointer-events-none" aria-hidden="true" />
             <span className="absolute inset-3 rounded-full bg-[radial-gradient(circle,_rgba(59,130,246,0.14),_transparent_55%)]" />
-            <img
-              src={profilePicture}
-              alt={`${personal.name} profile picture`}
-              onError={(event) => {
-                event.currentTarget.style.display = "none";
-              }}
-              className="relative h-full w-full rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
-            />
+            <div className="relative h-full w-full">
+              <Image
+                src={personal.profilePicture}
+                alt={`${personal.name} profile picture (light)`}
+                fill
+                sizes="112px"
+                className={`absolute inset-0 rounded-full object-cover transition-opacity duration-300 ${theme === "dark" ? "opacity-0" : "opacity-100"}`}
+              />
+              <Image
+                src={personal.profilePictureDark ?? personal.profilePicture}
+                alt={`${personal.name} profile picture (dark)`}
+                fill
+                sizes="112px"
+                className={`absolute inset-0 rounded-full object-cover transition-opacity duration-300 ${theme === "dark" ? "opacity-100" : "opacity-0"}`}
+              />
+            </div>
             <span className="avatar-fallback absolute inset-0 flex items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-sm text-[var(--color-text-secondary)] opacity-0 transition-opacity duration-200">
               {personal.name.slice(0, 2)}
             </span>

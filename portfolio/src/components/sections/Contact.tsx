@@ -6,12 +6,14 @@ import { personal } from "@/data/resume";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
+import { GithubIcon, LinkedinIcon, MediumIcon, InstagramIcon } from "@/components/ui/BrandIcons";
 
 const contactLinks = [
   { label: "Email", value: personal.email, href: `mailto:${personal.email}`, icon: Mail },
   { label: "GitHub", value: personal.github.replace("https://", ""), href: personal.github, icon: GithubIcon },
   { label: "LinkedIn", value: personal.linkedin.replace("https://", ""), href: personal.linkedin, icon: LinkedinIcon },
+  { label: "Medium", value: personal.medium.replace("https://", ""), href: personal.medium, icon: MediumIcon },
+  { label: "Instagram", value: personal.instagram?.replace("https://", ""), href: personal.instagram ?? "https://www.instagram.com/ayushgnawali/", icon: InstagramIcon },
 ];
 
 export function Contact() {
@@ -40,7 +42,7 @@ export function Contact() {
         <SectionHeading
           eyebrow="06 · Contact"
           title="Let's talk about a role"
-          description="Open to remote backend, DevOps, DevSecOps, AI/ML, and MLOps opportunities. The fastest way to reach me is email."
+          description="Open to remote backend, DevOps, DevSecOps, and AI/ML opportunities. The fastest way to reach me is email."
         />
 
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
@@ -71,6 +73,41 @@ export function Contact() {
                   />
                 </a>
               ))}
+            </div>
+
+            <div className="grid gap-4 pt-6 sm:grid-cols-2">
+              <a
+                href={personal.medium}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="group flex items-center gap-3 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
+              >
+                <MediumIcon size={22} className="text-[var(--color-accent-bright)]" />
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-tertiary)]">
+                    Publish & follow
+                  </p>
+                  <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                    Medium
+                  </p>
+                </div>
+              </a>
+              <a
+                href={personal.instagram}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="group flex items-center gap-3 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)]/80 p-4 transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)]"
+              >
+                <InstagramIcon size={22} className="text-[var(--color-accent-bright)]" />
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-text-tertiary)]">
+                    Visual updates
+                  </p>
+                  <p className="text-sm font-semibold text-[var(--color-text-primary)]">
+                    Instagram
+                  </p>
+                </div>
+              </a>
             </div>
           </Reveal>
 
@@ -144,6 +181,7 @@ export function Contact() {
                       id="message"
                       name="message"
                       required
+                      maxLength={600}
                       rows={5}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}

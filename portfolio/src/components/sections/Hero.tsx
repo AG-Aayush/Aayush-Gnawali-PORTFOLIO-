@@ -3,13 +3,18 @@
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
 import { personal } from "@/data/resume";
+import { useTheme } from "@/components/layout/ThemeProvider";
 import { Button } from "@/components/ui/Button";
 import { NodeGraphBackground } from "@/components/ui/NodeGraphBackground";
-import { GithubIcon, LinkedinIcon } from "@/components/ui/BrandIcons";
+import { GithubIcon, LinkedinIcon, MediumIcon, InstagramIcon } from "@/components/ui/BrandIcons";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
+  const { theme } = useTheme();
+  const profilePicture =
+    theme === "dark" ? personal.profilePictureDark ?? personal.profilePicture : personal.profilePicture;
+
   return (
     <section
       id="home"
@@ -29,30 +34,38 @@ export function Hero() {
           {/* Photo placeholder — swap the div's background for an <Image> once
               a real photo is available, at /public/avatar.jpg. Kept small and
               quiet so it doesn't compete with the name as the focal point. */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+          <motion.a
+            href={profilePicture}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: easeOut }}
-            className="mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] font-mono-tag text-lg text-[var(--color-text-secondary)]"
-            role="img"
-            aria-label={`${personal.name} — profile photo placeholder`}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="group mb-6 relative block h-28 w-28 overflow-hidden rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] shadow-[0_25px_60px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-110"
           >
-            AG
-          </motion.div>
+            <span className="avatar-ring pointer-events-none" aria-hidden="true" />
+            <span className="absolute inset-3 rounded-full bg-[radial-gradient(circle,_rgba(59,130,246,0.14),_transparent_55%)]" />
+            <img
+              src={profilePicture}
+              alt={`${personal.name} profile picture`}
+              onError={(event) => {
+                event.currentTarget.style.display = "none";
+              }}
+              className="relative h-full w-full rounded-full object-cover transition-transform duration-300 group-hover:scale-110"
+            />
+            <span className="avatar-fallback absolute inset-0 flex items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-sm text-[var(--color-text-secondary)] opacity-0 transition-opacity duration-200">
+              {personal.name.slice(0, 2)}
+            </span>
+          </motion.a>
 
-          {/* Status line — the signature element: a health-check-style status readout */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.05, ease: easeOut }}
-            className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)]/70 px-3 py-1.5 shadow-[0_0_0_1px_rgba(255,255,255,0.05)]"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)]/80 px-4 py-2 shadow-[0_0_0_1px_rgba(255,255,255,0.08)]"
           >
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-positive)] opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--color-positive)]" />
-            </span>
-            <span className="font-mono-tag text-[11px] text-[var(--color-text-secondary)]">
-              Open to work · API · Auth · Infrastructure · ML
+            <span className="typewriter font-mono-tag text-[11px] text-[var(--color-text-secondary)]">
+              Exploring Tech • Building Systems • Automating Workflows
             </span>
           </motion.div>
 
@@ -114,7 +127,7 @@ export function Hero() {
               target="_blank"
               rel="noreferrer noopener"
               aria-label="GitHub profile"
-              className="text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
+              className="text-[var(--color-text-tertiary)] transition-transform duration-200 hover:-translate-y-0.5 hover:text-[var(--color-text-primary)]"
             >
               <GithubIcon size={19} />
             </a>
@@ -123,14 +136,32 @@ export function Hero() {
               target="_blank"
               rel="noreferrer noopener"
               aria-label="LinkedIn profile"
-              className="text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
+              className="text-[var(--color-text-tertiary)] transition-transform duration-200 hover:-translate-y-0.5 hover:text-[var(--color-text-primary)]"
             >
               <LinkedinIcon size={19} />
             </a>
             <a
+              href={personal.medium}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Medium profile"
+              className="text-[var(--color-text-tertiary)] transition-transform duration-200 hover:-translate-y-0.5 hover:text-[var(--color-text-primary)]"
+            >
+              <MediumIcon size={19} />
+            </a>
+            <a
+              href={personal.instagram}
+              target="_blank"
+              rel="noreferrer noopener"
+              aria-label="Instagram profile"
+              className="text-[var(--color-text-tertiary)] transition-transform duration-200 hover:-translate-y-0.5 hover:text-[var(--color-text-primary)]"
+            >
+              <InstagramIcon size={19} />
+            </a>
+            <a
               href={`mailto:${personal.email}`}
               aria-label="Send email"
-              className="text-[var(--color-text-tertiary)] transition-colors hover:text-[var(--color-text-primary)]"
+              className="text-[var(--color-text-tertiary)] transition-transform duration-200 hover:-translate-y-0.5 hover:text-[var(--color-text-primary)]"
             >
               <Mail size={19} />
             </a>

@@ -27,3 +27,33 @@ export function LinkedinIcon({ size = 18, className }: { size?: number; classNam
     </svg>
   );
 }
+
+export function MediumIcon({ size = 18, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M2.25 6.75a.75.75 0 0 1 .75-.75h18a.75.75 0 0 1 0 1.5h-18a.75.75 0 0 1-.75-.75Zm3.88 3.14a.75.75 0 0 1 .25.53v8.56a.75.75 0 0 1-1.26.6L2.24 16.8a.75.75 0 0 1-.24-.56V9.42a.75.75 0 0 1 1.25-.54l2.58 2.01Zm6.37 2.3a.75.75 0 0 1 .52-.34h3.48a.75.75 0 0 1 .74.94l-1.1 4.48a.75.75 0 0 1-.72.56h-1.8a.75.75 0 0 1-.74-.56l-1.08-4.48a.75.75 0 0 1 .7-.94Zm6.75-3.75a.75.75 0 0 1 1.03.52l2.16 7.32a.75.75 0 0 1-.52.94l-1.56.4a.75.75 0 0 1-.94-.52l-1.27-4.3-1.12 4.82a.75.75 0 0 1-.72.56h-1.78a.75.75 0 0 1-.74-.56l-1.08-4.48a.75.75 0 0 1 .7-.94h3.48a.75.75 0 0 1 .7.94l-1.12 4.82 1.83-.48 2.16-7.32A.75.75 0 0 1 18.95 8.44Z" />
+    </svg>
+  );
+}
+
+export function InstagramIcon({ size = 18, className }: { size?: number; className?: string }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5ZM12 7.25a4.75 4.75 0 1 1 0 9.5 4.75 4.75 0 0 1 0-9.5Zm0 1.5a3.25 3.25 0 1 0 0 6.5 3.25 3.25 0 0 0 0-6.5Zm4.75-.94a1.06 1.06 0 1 1 0 2.12 1.06 1.06 0 0 1 0-2.12Z" />
+    </svg>
+  );
+}

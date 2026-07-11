@@ -20,7 +20,7 @@ export function Projects() {
         <SectionHeading
           eyebrow="03 · Projects"
           title="Things I have built"
-          description="Each project appears as a widescreen row with split content, meaningful details, and interactive technology tags."
+          description="Every project sits in a full-width stacked row with split content and a clean preview frame."
         />
 
         <div className="space-y-10">

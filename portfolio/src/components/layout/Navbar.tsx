@@ -35,8 +35,10 @@ export function Navbar() {
     document.documentElement.classList.toggle("dark", initialTheme === "dark");
   }, []);
 
+  const isDark = theme === "dark";
+
   function toggleTheme() {
-    const nextTheme = theme === "dark" ? "light" : "dark";
+    const nextTheme = isDark ? "light" : "dark";
     setTheme(nextTheme);
     document.documentElement.classList.toggle("dark", nextTheme === "dark");
     window.localStorage.setItem("theme", nextTheme);
@@ -112,9 +114,9 @@ export function Navbar() {
             type="button"
             onClick={toggleTheme}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)] text-[var(--color-text-secondary)] transition duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
-            aria-label="Toggle theme"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           >
-            {theme === "dark" ? <SunMedium size={16} /> : <Moon size={16} />}
+            {isDark ? <SunMedium size={16} /> : <Moon size={16} />}
           </button>
           <a
             href={personal.resumeFile}
@@ -169,7 +171,7 @@ export function Navbar() {
                   onClick={toggleTheme}
                   className="font-mono-tag inline-flex items-center gap-2 rounded-md border border-[var(--color-border-strong)] px-3 py-2 text-xs text-[var(--color-text-secondary)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
                 >
-                  {theme === "dark" ? "Light mode" : "Dark mode"}
+                  {isDark ? "Light mode" : "Dark mode"}
                 </button>
               </li>
               <li className="pt-2">

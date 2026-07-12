@@ -3,7 +3,7 @@ import "./globals.css";
 import { personal } from "@/data/resume";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 
-const siteUrl = "https://aayushgnawali.dev";
+const siteUrl = "https://aayush-gnawali-portfolio.vercel.app/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

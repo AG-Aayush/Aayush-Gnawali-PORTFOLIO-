@@ -150,6 +150,16 @@ export const projects: Project[] = [
     //images: [],
     featured: true,
   },
+  {
+    id: "IOT-based-Smart-Home-Monitoring-System",
+    name: "IOT-based Smart Home Monitoring System",
+    pitch: "ESP8266 Microcontroller-based remote monitoring system using HTTP for real-time data transmission.",
+    description: "An ESP8266 microcontroller-based system for remote monitoring of home environment parameters, using HTTP for real-time data transmission and MySQL for data storage.",
+    challenge: "Hardware failure, sensor failures, poor network connectivity.",
+    learned: "How to build IOT projects, using ESP8266, HTTP, MySQL, Arduino IDE.",
+    stack: ["IOT", "ESP8266", "HTTP", "MySQL", "Arduino IDE"],
+    featured: false,
+  },
 ];
 
 export type SkillCategory = {

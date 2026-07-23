@@ -49,9 +49,7 @@ export function Contact() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    // No backend on this static site — hand off to the visitor's own mail
-    // client with the message pre-filled, rather than silently pretending
-    // to "send" something.
+
     const subject = encodeURIComponent(`Portfolio contact from ${name || "a visitor"}`);
     const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
     window.location.href = `mailto:${personal.email}?subject=${subject}&body=${body}`;
@@ -136,7 +134,7 @@ export function Contact() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         className="w-full rounded-md border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] px-3.5 py-2.5 text-sm text-[var(--color-accent-bright)] outline-none transition-colors placeholder:text-[var(--color-text-tertiary)] focus:border-[var(--color-accent)]"
-                        placeholder="Jane Doe"
+                        placeholder="Aayush Gnawali"
                       />
                     </div>
                     <div>
@@ -154,7 +152,7 @@ export function Contact() {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="w-full rounded-md border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] px-3.5 py-2.5 text-sm text-[var(--color-accent-bright)] outline-none transition-colors placeholder:text-[var(--color-text-tertiary)] focus:border-[var(--color-accent)]"
-                        placeholder="jane@company.com"
+                        placeholder="youremail@email.com"
                       />
                     </div>
                   </div>

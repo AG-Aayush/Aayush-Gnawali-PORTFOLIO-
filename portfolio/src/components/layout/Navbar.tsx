@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download, Moon, SunMedium } from "lucide-react";
+import { Menu, X, Download, Moon, SunMedium, SunMediumIcon, MoonIcon } from "lucide-react";
 import { personal } from "@/data/resume";
 import { useTheme } from "@/components/layout/ThemeProvider";
 import { cn } from "@/lib/utils";
@@ -101,7 +101,7 @@ export function Navbar() {
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border-strong)] bg-[var(--color-bg)] text-[var(--color-text-secondary)] transition duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
             aria-label={theme === "light" ? "Switch to dark mode" : "Switch to light mode"}
           >
-            {theme === "light" ? <Moon size={16} /> : <SunMedium size={16} />}
+            {theme === "light" ? <SunMedium size={16} /> : <Moon size={16} />}
           </button>
           <a
             href={personal.resumeFile}
@@ -156,7 +156,7 @@ export function Navbar() {
                   onClick={toggleTheme}
                   className="font-mono-tag inline-flex items-center gap-2 rounded-md border border-[var(--color-border-strong)] px-3 py-2 text-xs text-[var(--color-text-secondary)] transition duration-200 hover:border-[var(--color-accent)] hover:text-[var(--color-text-primary)]"
                 >
-                  {theme === "light" ? <Moon size={14} /> : <SunMedium size={14} />}
+                  {theme === "light" ? <SunMedium size={14} /> : <Moon size={14} />}
                   {theme === "light" ? "Dark mode" : "Light mode"}
                 </button>
               </li>

@@ -3,7 +3,7 @@ import "./globals.css";
 import { personal } from "@/data/resume";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 
-const siteUrl = "https://aayush-gnawali-portfolio.vercel.app/";
+const siteUrl = "https://www.aayushgnawali.com.np/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -56,7 +56,10 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: personal.name,
+  alternateName: ["Aayush Gnawali", "Gnawali Aayush"],
   url: siteUrl,
+  image: `${siteUrl}${personal.profilePicture}`,
+  description: personal.tagline,
   jobTitle: personal.role,
   address: {
     "@type": "PostalAddress",

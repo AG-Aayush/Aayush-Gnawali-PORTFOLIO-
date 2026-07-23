@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://aayushgnawali.dev/sitemap.xml",
+    sitemap: "https://www.aayushgnawali.com.np/sitemap.xml",
   };
 }

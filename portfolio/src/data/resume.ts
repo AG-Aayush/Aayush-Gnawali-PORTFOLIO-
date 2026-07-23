@@ -289,7 +289,6 @@ export const education = [
     school: "Trinity International College",
     location: "Kathmandu, Nepal",
     period: "2020 - 2022",
-    note: "GPA: 3.20",
   },
 ] as const;
 

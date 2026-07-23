@@ -93,32 +93,15 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "fastapi-notes",
-    name: "Secure FastAPI Notes CRUD API",
-    pitch: "A production style REST API with real authentication, not a toy CRUD demo.",
-    description:
-      "A RESTful API built with FastAPI and PostgreSQL, using asynchronous database operations end to end. Implements JWT-based authentication, bcrypt password hashing, and owner-based authorization so users can only access their own resources. Backend modules are structured with Pydantic validation and Async SQLAlchemy for scalable request handling.",
-    challenge:
-      "Getting authorization right was harder than authentication making sure every CRUD endpoint checked resource ownership, not just a valid token, without duplicating that logic across routes.",
-    learned:
-      "How to structure async SQLAlchemy sessions and dependency injection in FastAPI so security checks stay centralized and testable instead of scattered through the codebase.",
-    stack: ["FastAPI", "PostgreSQL", "Async SQLAlchemy", "JWT", "Pydantic", "bcrypt"],
-    github: "https://github.com/AG-Aayush/fastAPI-CRUD-project",
-    demo: "https://fastapi-crud-project-1-9fr9.onrender.com/docs",
-    featured: true,
-  },
-  {
-    id: "self-healing",
-    name: "Rule-Based Self-Healing Web Automation System",
-    pitch: "Automation that notices when a web UI changes and recovers on its own.",
-    description:
-      "A Python automation framework built on Selenium that uses heuristic scoring to recover automatically when a web element locator breaks a common failure point in browser automation when a UI changes. Includes backend monitoring and recovery workflows for handling dynamic UI changes, plus a Streamlit dashboard for tracking healing confidence scores and runtime metrics.",
-    challenge:
-      "Deciding how confident the system should be before it 'heals' automatically versus flagging for a human too aggressive and it silently masks real breakage, too conservative and it defeats the point.",
-    learned:
-      "How to design rule-based recovery logic with a confidence threshold rather than a binary pass/fail, and how much observability (the metrics dashboard) matters for trusting an automated recovery system.",
-    stack: ["Python", "Selenium", "Streamlit", "Automation", "Monitoring"],
-    github: "https://github.com/sobitchand/Selfhealing-system",
+    id: "Digital-Desktop Watch",
+    name: "Digital Desktop Watch",
+    pitch: "A modern digital desktop watch for your desktop that will be with you when ever you turn on your computer.",
+    description: "A desktop watch application built with PyQt6, featuring time display.",
+    challenge: "Integrating real-time clock updates with a responsive UI.",
+    learned: "How to build desktop applications with PyQt6, handle real-time updates, and implement custom features.",
+    stack: ["Python", "PyQt6", " Custom Widgets", "Time Display", "Alarms"],
+    github: "https://github.com/AG-Aayush/Desktop-Digital-Clock.git",
+    images: ["/projects/project_images/Digital-clock.png"],
     featured: true,
   },
   {
@@ -149,20 +132,23 @@ export const projects: Project[] = [
     stack: ["JavaScript", "Three.js", "GitHub Pages"],
     demo: "https://ag-aayush.github.io/pomodoro-3d/",
     images: ["/projects/project_images/pomodoro.png"],
-    featured: false,
+    featured: true,
   },
   {
-    id: "iot-monitoring",
-    name: "IoT Infrastructure Automation",
-    pitch: "Arduino-based hardware monitoring with a real-time web dashboard.",
+    id: "hippyhub-ecommerce-website",
+    name: "HippyHub E-Commerce Website",
+    pitch: "A 3-tier e-commerce platform for hemp products and Dhaka-pattern clothing.",
     description:
-      "An Arduino-based automation system with real-time sensor integration for automated light and water tank monitoring. Includes a custom web interface for real-time data visualization, voice control, and hardware control.",
+      "A 3-tier e-commerce website built for hemp products and Dhaka-design clothing, using React for the frontend, FastAPI for the backend, and PostgreSQL as the database.",
     challenge:
-      "Keeping sensor readings and hardware state synchronized with the web dashboard in real time without flooding the interface with noisy updates.",
+      "Building smooth animations and transitions across the storefront while keeping the frontend performant.",
     learned:
-      "How physical/hardware constraints (sensor noise, latency) shape software design decisions in a way pure web development doesn't.",
-    stack: ["Arduino", "IoT", "Sensors", "Web Dashboard"],
-    featured: false,
+      "This project was assigned during my DevOps training period. I containerized and ran the full stack using Docker.",
+    stack: ["React", "FastAPI", "PostgreSQL", "Docker", "Docker Compose", "nginx"],
+    github: "https://github.com/AG-Aayush/E-Commerce",
+    // demo: "",
+    //images: [],
+    featured: true,
   },
 ];
 

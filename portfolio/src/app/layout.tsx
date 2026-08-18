@@ -1,12 +1,22 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { personal } from "@/data/resume";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 
 const siteUrl = "https://www.aayushgnawali.com.np/";
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f0f4f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#2d1f33" },
+  ],
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: siteUrl,
+  },
   title: {
     default: `${personal.name} — ${personal.role}`,
     template: `%s — ${personal.name}`,
@@ -26,6 +36,7 @@ export const metadata: Metadata = {
   creator: personal.name,
   openGraph: {
     type: "website",
+    locale: "en_US",
     url: siteUrl,
     title: `${personal.name} — ${personal.role}`,
     description: personal.tagline,
@@ -33,6 +44,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: `${siteUrl}${personal.profilePictureDark ?? personal.profilePicture}`,
+        width: 1200,
+        height: 630,
         alt: `${personal.name} — ${personal.role}`,
       },
     ],
@@ -52,54 +65,11 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: personal.name,
-  alternateName: ["Aayush Gnawali", "Gnawali Aayush"],
-  url: siteUrl,
-  image: `${siteUrl}${personal.profilePicture}`,
-  description: personal.tagline,
-  jobTitle: personal.role,
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: personal.location,
-  },
-  sameAs: [personal.github, personal.linkedin, personal.medium, personal.instagram].filter(Boolean),
-  knowsAbout: [
-    "Backend Development",
-    "FastAPI",
-    "DevOps",
-    "DevSecOps",
-    "Machine Learning",
-    "Python",
-  ],
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="transition-colors duration-300">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
-      <body className="antialiased">
-        <ThemeProvider>
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-[var(--color-surface)] focus:border focus:border-[var(--color-border-strong)] focus:px-4 focus:py-2 focus:text-sm"
-          >
-            Skip to main content
-          </a>
-          <div className="grain-overlay" aria-hidden="true" />
-          {children}
-        </ThemeProvider>
+    <html lang="en">
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

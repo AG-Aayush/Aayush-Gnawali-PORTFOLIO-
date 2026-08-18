@@ -93,30 +93,28 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    id: "Digital-Desktop Watch",
-    name: "Digital Desktop Watch",
-    pitch: "A modern digital desktop watch for your desktop that will be with you when ever you turn on your computer.",
-    description: "A desktop watch application built with PyQt6, featuring time display.",
-    challenge: "Integrating real-time clock updates with a responsive UI.",
-    learned: "How to build desktop applications with PyQt6, handle real-time updates, and implement custom features.",
-    stack: ["Python", "PyQt6", " Custom Widgets", "Time Display", "Alarms"],
-    github: "https://github.com/AG-Aayush/Desktop-Digital-Clock.git",
-    images: ["/projects/project_images/Digital-clock.png"],
+    id: "self-healing",
+    name: "Rule-Based Self-Healing Web Automation System",
+    pitch: "Automation that notices when a web UI changes and recovers on its own.",
+    description:
+      "A Python-based automation system for noticing UI drift, tracking browser state, and recovering failed workflows with rule-based healing logic instead of manual intervention.",
+    challenge:
+      "Designing resilient automation when selectors and UI structure shift over time, especially during live application updates.",
+    learned:
+      "How to combine monitoring, browser event tracking, and recovery rules into a reliable automation workflow for web interfaces.",
+    stack: ["Python", "Automation", "UI Monitoring", "Browser Events", "Telemetry", "Rule-Based Recovery"],
     featured: true,
   },
   {
-    id: "house-price",
-    name: "House Price Prediction Deployment",
-    pitch: "A regression model taken from notebook to a live, interactive tool.",
-    description:
-      "A machine learning application built with Scikit-learn and deployed with Streamlit. Covers data preprocessing, feature engineering, and a real-time inference pipeline, with visualizations for monitoring model performance rather than just outputting a single prediction number.",
-    challenge:
-      "Feature engineering that generalized well early versions overfit to patterns in the training data that didn't hold up on new inputs.",
-    learned:
-      "The gap between a model that scores well in a notebook and one that behaves sensibly in a live interface with real user input.",
-    stack: ["Python", "Scikit-learn", "Streamlit", "Pandas", "NumPy"],
-    demo: "https://house-price-prediction-california-6w6gf3ztnnqx76rybzdd8v.streamlit.app/",
-    images: ["/projects/project_images/house-prediction.png"],
+    id: "Digital-Desktop Watch",
+    name: "Digital Desktop Watch",
+    pitch: "A modern digital desktop watch for your desktop that stays with you whenever you turn on your computer.",
+    description: "A desktop watch application built with PyQt6, featuring real-time clock updates, custom widgets, and a clean desktop-first interface.",
+    challenge: "Integrating real-time clock updates with a responsive UI while keeping the desktop experience lightweight and polished.",
+    learned: "How to build desktop applications with PyQt6, handle real-time updates, and implement custom features in a focused UI.",
+    stack: ["Python", "PyQt6", "Custom Widgets", "Time Display", "Alarms"],
+    github: "https://github.com/AG-Aayush/Desktop-Digital-Clock.git",
+    images: ["/projects/project_images/Digital-clock.png"],
     featured: true,
   },
   {
@@ -135,6 +133,31 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "IOT-based-Smart-Home-Monitoring-System",
+    name: "IOT-based Smart Home Monitoring System",
+    pitch: "ESP8266 Microcontroller-based remote monitoring system using HTTP for real-time data transmission.",
+    description: "An ESP8266 microcontroller-based system for remote monitoring of home environment parameters, using HTTP for real-time data transmission and MySQL for data storage.",
+    challenge: "Hardware failure, sensor failures, poor network connectivity.",
+    learned: "How to build IOT projects, using ESP8266, HTTP, MySQL, Arduino IDE.",
+    stack: ["IOT", "ESP8266", "HTTP", "MySQL", "Arduino IDE"],
+    featured: true,
+  },
+  {
+    id: "house-price",
+    name: "House Price Prediction Deployment",
+    pitch: "A regression model taken from notebook to a live, interactive tool.",
+    description:
+      "A machine learning application built with Scikit-learn and deployed with Streamlit. Covers data preprocessing, feature engineering, and a real-time inference pipeline, with visualizations for monitoring model performance rather than just outputting a single prediction number.",
+    challenge:
+      "Feature engineering that generalized well early versions overfit to patterns in the training data that didn't hold up on new inputs.",
+    learned:
+      "The gap between a model that scores well in a notebook and one that behaves sensibly in a live interface with real user input.",
+    stack: ["Python", "Scikit-learn", "Streamlit", "Pandas", "NumPy"],
+    demo: "https://house-price-prediction-california-6w6gf3ztnnqx76rybzdd8v.streamlit.app/",
+    images: ["/projects/project_images/house-prediction.png"],
+    featured: true,
+  },
+  {
     id: "hippyhub-ecommerce-website",
     name: "HippyHub E-Commerce Website",
     pitch: "A 3-tier e-commerce platform for hemp products and Dhaka-pattern clothing.",
@@ -146,19 +169,7 @@ export const projects: Project[] = [
       "This project was assigned during my DevOps training period. I containerized and ran the full stack using Docker.",
     stack: ["React", "FastAPI", "PostgreSQL", "Docker", "Docker Compose", "nginx"],
     github: "https://github.com/AG-Aayush/E-Commerce",
-    // demo: "",
-    //images: [],
     featured: true,
-  },
-  {
-    id: "IOT-based-Smart-Home-Monitoring-System",
-    name: "IOT-based Smart Home Monitoring System",
-    pitch: "ESP8266 Microcontroller-based remote monitoring system using HTTP for real-time data transmission.",
-    description: "An ESP8266 microcontroller-based system for remote monitoring of home environment parameters, using HTTP for real-time data transmission and MySQL for data storage.",
-    challenge: "Hardware failure, sensor failures, poor network connectivity.",
-    learned: "How to build IOT projects, using ESP8266, HTTP, MySQL, Arduino IDE.",
-    stack: ["IOT", "ESP8266", "HTTP", "MySQL", "Arduino IDE"],
-    featured: false,
   },
 ];
 

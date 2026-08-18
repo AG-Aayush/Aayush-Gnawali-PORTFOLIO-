@@ -11,8 +11,10 @@ import { Achievements } from "@/components/sections/Achievements";
 import { Skills } from "@/components/sections/Skills";
 import { Certifications } from "@/components/sections/Certifications";
 import { Contact } from "@/components/sections/Contact";
+import { Social } from "@/components/sections/Social";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import { IntroLoader } from "@/components/ui/IntroLoader";
+import { FluidCursor } from "@/components/ui/FluidCursor";
 
 export default function Home() {
   const [introComplete, setIntroComplete] = useState(false);
@@ -20,6 +22,7 @@ export default function Home() {
   return (
     <>
       {!introComplete && <IntroLoader onComplete={() => setIntroComplete(true)} />}
+      {introComplete && <FluidCursor />}
       {introComplete && (
         <>
           <Navbar />
@@ -31,6 +34,7 @@ export default function Home() {
             <Projects />
             <Skills />
             <Certifications />
+            <Social />
             <Contact />
           </main>
           <Footer />

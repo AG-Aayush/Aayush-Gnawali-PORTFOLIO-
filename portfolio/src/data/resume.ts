@@ -2,7 +2,7 @@
 export const personal = {
   name: "Aayush Gnawali",
   firstName: "Aayush",
-  role: "DevOps / DevSecOps, Backend Engineer & AI/ML",
+  role: "DevOps • DevSecOps • AI/ML • Backend",
   location: "Kathmandu, Nepal",
   tagline:
     "I build reliable backend systems and the automation that keeps them running.",

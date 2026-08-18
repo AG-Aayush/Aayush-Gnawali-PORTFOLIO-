@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download, Moon, SunMedium, SunMediumIcon, MoonIcon } from "lucide-react";
+import { Menu, X, Download, Moon, SunMedium } from "lucide-react";
 import { personal } from "@/data/resume";
 import { useTheme } from "@/components/layout/ThemeProvider";
 import { cn } from "@/lib/utils";

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { personal } from "@/data/resume";
 import { useTheme } from "@/components/layout/ThemeProvider";
 import { Button } from "@/components/ui/Button";
@@ -13,8 +14,146 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   const { theme } = useTheme();
-  const profilePicture =
-    theme === "dark" ? personal.profilePictureDark ?? personal.profilePicture : personal.profilePicture;
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const pointerTarget = useRef({ x: 0, y: 0 });
+  const pointerCurrent = useRef({ x: 0, y: 0 });
+  const velocityRef = useRef({ x: 0, y: 0 });
+  const trailRef = useRef<Array<{ x: number; y: number; vx: number; vy: number; radius: number }>>([]);
+  const frameRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const media = window.matchMedia("(pointer: fine)");
+    if (!media.matches) return;
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resizeCanvas = () => {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const tx = event.clientX;
+      const ty = event.clientY;
+      const dx = tx - pointerTarget.current.x;
+      const dy = ty - pointerTarget.current.y;
+      const speed = Math.min(Math.hypot(dx, dy), 40);
+
+      pointerTarget.current = { x: tx, y: ty };
+      velocityRef.current = { x: dx * 0.7, y: dy * 0.7 };
+
+      if (speed > 0.35) {
+        trailRef.current.push({
+          x: tx,
+          y: ty,
+          vx: dx,
+          vy: dy,
+          radius: 18 + speed * 0.8,
+        });
+      }
+
+      if (trailRef.current.length > 18) {
+        trailRef.current.shift();
+      }
+    };
+
+    const handlePointerLeave = () => {
+      trailRef.current = [];
+    };
+
+    const render = () => {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      const dx = pointerTarget.current.x - pointerCurrent.current.x;
+      const dy = pointerTarget.current.y - pointerCurrent.current.y;
+      pointerCurrent.current.x += dx * 0.18;
+      pointerCurrent.current.y += dy * 0.18;
+
+      const baseSpeed = Math.hypot(velocityRef.current.x, velocityRef.current.y);
+      const trailIntensity = Math.min(1, baseSpeed / 32);
+
+      for (let i = 0; i < trailRef.current.length; i += 1) {
+        const point = trailRef.current[i];
+        const alpha = (i + 1) / trailRef.current.length;
+        const blobRadius = Math.max(12, point.radius * (0.4 + alpha * 1.4));
+        const gradient = ctx.createRadialGradient(
+          point.x,
+          point.y,
+          0,
+          point.x,
+          point.y,
+          blobRadius * 1.7
+        );
+
+        gradient.addColorStop(0, `rgba(224, 231, 255, ${0.72 * alpha})`);
+        gradient.addColorStop(0.18, `rgba(196, 181, 253, ${0.56 * alpha})`);
+        gradient.addColorStop(0.42, `rgba(129, 140, 248, ${0.32 * alpha})`);
+        gradient.addColorStop(1, "rgba(59, 130, 246, 0)");
+
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, blobRadius * 1.4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      const glow = ctx.createRadialGradient(
+        pointerCurrent.current.x,
+        pointerCurrent.current.y,
+        0,
+        pointerCurrent.current.x,
+        pointerCurrent.current.y,
+        36 + trailIntensity * 18
+      );
+      glow.addColorStop(0, "rgba(255, 255, 255, 0.9)");
+      glow.addColorStop(0.28, "rgba(191, 219, 254, 0.8)");
+      glow.addColorStop(0.56, "rgba(165, 180, 252, 0.42)");
+      glow.addColorStop(1, "rgba(96, 165, 250, 0)");
+
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(pointerCurrent.current.x, pointerCurrent.current.y, 28 + trailIntensity * 18, 0, Math.PI * 2);
+      ctx.fill();
+
+      const smallDot = ctx.createRadialGradient(
+        pointerCurrent.current.x,
+        pointerCurrent.current.y,
+        0,
+        pointerCurrent.current.x,
+        pointerCurrent.current.y,
+        10
+      );
+      smallDot.addColorStop(0, "rgba(255,255,255,0.95)");
+      smallDot.addColorStop(0.25, "rgba(196,181,253,0.88)");
+      smallDot.addColorStop(1, "rgba(96,165,250,0)");
+      ctx.fillStyle = smallDot;
+      ctx.beginPath();
+      ctx.arc(pointerCurrent.current.x, pointerCurrent.current.y, 11, 0, Math.PI * 2);
+      ctx.fill();
+
+      frameRef.current = requestAnimationFrame(render);
+    };
+
+    resizeCanvas();
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerleave", handlePointerLeave);
+    window.addEventListener("resize", resizeCanvas);
+    frameRef.current = requestAnimationFrame(render);
+
+    return () => {
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerleave", handlePointerLeave);
+      window.removeEventListener("resize", resizeCanvas);
+    };
+  }, []);
 
   return (
     <section
@@ -30,20 +169,22 @@ export function Hero() {
         aria-hidden="true"
       />
 
+      <canvas
+        ref={canvasRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-[80]"
+      />
+
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 lg:px-8">
         <div className="max-w-2xl">
           {/* Photo placeholder — swap the div's background for an <Image> once
               a real photo is available, at /public/avatar.jpg. Kept small and
               quiet so it doesn't compete with the name as the focal point. */}
-          <motion.a
-            href={profilePicture}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${personal.name} profile picture — open full image`}
+          <motion.div
             initial={useReducedMotion() ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
             animate={useReducedMotion() ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
             transition={useReducedMotion() ? { duration: 0 } : { duration: 0.45, ease: "easeOut" }}
-            className="group mb-6 relative block h-28 w-28 overflow-hidden rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] shadow-[0_25px_60px_rgba(15,23,42,0.12)] transition-transform duration-300 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
+            className="group relative mb-6 block h-28 w-28 overflow-hidden rounded-full border border-[var(--color-border-strong)] bg-[var(--color-surface)] shadow-[0_25px_60px_rgba(15,23,42,0.12)] transition-all duration-300 hover:scale-[1.04]"
           >
             <span className="avatar-ring pointer-events-none" aria-hidden="true" />
             <span className="absolute inset-3 rounded-full bg-[radial-gradient(circle,_rgba(59,130,246,0.14),_transparent_55%)]" />
@@ -63,10 +204,7 @@ export function Hero() {
                 className={`absolute inset-0 rounded-full object-cover transition-opacity duration-300 ${theme === "dark" ? "opacity-100" : "opacity-0"}`}
               />
             </div>
-            <span className="avatar-fallback absolute inset-0 flex items-center justify-center rounded-full bg-[var(--color-bg-elevated)] text-sm text-[var(--color-text-secondary)] opacity-0 transition-opacity duration-200">
-              {personal.name.slice(0, 2)}
-            </span>
-          </motion.a>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -94,7 +232,7 @@ export function Hero() {
             transition={{ duration: 0.65, delay: 0.2, ease: easeOut }}
             className="mt-4 text-xl text-[var(--color-text-secondary)] sm:text-2xl"
           >
-            {personal.role}
+            DevOps • DevSecOps • AI/ML • Backend
           </motion.p>
 
           <motion.p

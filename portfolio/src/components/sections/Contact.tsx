@@ -6,40 +6,6 @@ import { personal } from "@/data/resume";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { GlassCard } from "@/components/ui/GlassCard";
-import { GithubIcon, LinkedinIcon, MediumIcon, InstagramIcon } from "@/components/ui/BrandIcons";
-
-const contactHandles = [
-  {
-    label: "Email Me",
-    tagline: "SAY HELLO",
-    href: `mailto:${personal.email}`,
-    icon: Mail,
-  },
-  {
-    label: "GitHub",
-    tagline: "CODE & REPOSITORIES",
-    href: personal.github,
-    icon: GithubIcon,
-  },
-  {
-    label: "LinkedIn",
-    tagline: "PROFESSIONAL NETWORK",
-    href: personal.linkedin,
-    icon: LinkedinIcon,
-  },
-  {
-    label: "Medium",
-    tagline: "PUBLISH & FOLLOW",
-    href: personal.medium,
-    icon: MediumIcon,
-  },
-  {
-    label: "Instagram",
-    tagline: "VISUAL UPDATES",
-    href: personal.instagram ?? "https://www.instagram.com/ayushgnawali/",
-    icon: InstagramIcon,
-  },
-];
 
 export function Contact() {
   const [name, setName] = useState("");
@@ -68,33 +34,26 @@ export function Contact() {
           description="Open to remote backend, DevOps, DevSecOps, and AI/ML opportunities. The fastest way to reach me is email."
         />
 
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_1.25fr]">
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.4fr]">
           <Reveal>
-            <div className="grid gap-4">
-              <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {contactHandles.map(({ label, tagline, href, icon: Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    aria-label={`${label}: ${tagline}`}
-                    target={href.startsWith("http") ? "_blank" : undefined}
-                    rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
-                    className="group flex flex-col gap-1 rounded-full border border-[var(--color-border)] bg-[var(--color-surface)]/80 px-5 py-4 text-left shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:bg-[var(--color-surface-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div>
-                        <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--color-text-tertiary)]">
-                          {tagline}
-                        </p>
-                        <p className="mt-1 text-base font-semibold text-[var(--color-text-primary)]">
-                          {label}
-                        </p>
-                      </div>
-                      <Icon size={22} className="text-[var(--color-accent-bright)]" />
-                    </div>
-                  </a>
-                ))}
-              </div>
+            <div className="flex h-full items-center justify-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/70 p-6">
+              <a
+                href={`mailto:${personal.email}`}
+                className="group inline-flex items-center gap-3 rounded-full border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 py-3 text-left text-white shadow-[0_10px_30px_rgba(59,130,246,0.2)] transition duration-200 hover:-translate-y-0.5 hover:opacity-95"
+              >
+                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/12 text-white">
+                  <Mail size={18} />
+                </span>
+                <span>
+                  <span className="block text-[10px] uppercase tracking-[0.28em] text-white/80">
+                    Send an email
+                  </span>
+                  <span className="mt-1 block text-base font-semibold text-white">
+                    {personal.email}
+                  </span>
+                </span>
+                <ArrowUpRight size={16} className="text-white transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
             </div>
           </Reveal>
 

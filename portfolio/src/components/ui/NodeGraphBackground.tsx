@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { useTheme } from "@/components/layout/ThemeProvider";
 
 type Node = { id: string; x: number; y: number; label: string };
 
@@ -31,19 +32,23 @@ const edges: [string, string][] = [
  */
 export function NodeGraphBackground() {
   const shouldReduceMotion = useReducedMotion();
+  const { theme } = useTheme();
+  const isLight = theme === "light";
   const nodeMap = Object.fromEntries(nodes.map((n) => [n.id, n]));
+  const svgOpacity = isLight ? "0.75" : "0.55";
 
   return (
     <svg
       viewBox="0 0 540 300"
-      className="h-full w-full opacity-[0.55]"
+      className={`h-full w-full opacity-[${svgOpacity}]`}
+      style={{ opacity: isLight ? 0.75 : 0.55 }}
       aria-hidden="true"
       preserveAspectRatio="xMidYMid meet"
     >
       <defs>
         <linearGradient id="edgeGradient" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0.05" />
+          <stop offset="0%" stopColor="var(--color-accent)" stopOpacity={isLight ? "0.7" : "0.5"} />
+          <stop offset="100%" stopColor="var(--color-accent)" stopOpacity={isLight ? "0.15" : "0.05"} />
         </linearGradient>
       </defs>
 
@@ -58,7 +63,7 @@ export function NodeGraphBackground() {
             x2={b.x}
             y2={b.y}
             stroke="url(#edgeGradient)"
-            strokeWidth="1.5"
+            strokeWidth={isLight ? "2" : "1.5"}
             strokeLinecap="round"
             initial={{ pathLength: 0, opacity: 0 }}
             animate={{ pathLength: 1, opacity: 1 }}
@@ -79,7 +84,7 @@ export function NodeGraphBackground() {
             r="3.5"
             fill="var(--color-bg)"
             stroke="var(--color-accent-bright)"
-            strokeWidth="1.5"
+            strokeWidth={isLight ? "2" : "1.5"}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{
@@ -95,9 +100,9 @@ export function NodeGraphBackground() {
               r="3.5"
               fill="none"
               stroke="var(--color-accent)"
-              strokeWidth="1"
+              strokeWidth={isLight ? "1.5" : "1"}
               initial={{ scale: 1, opacity: 0.6 }}
-              animate={{ scale: [1, 2.4], opacity: [0.5, 0] }}
+              animate={{ scale: [1, 2.4], opacity: [isLight ? 0.7 : 0.5, 0] }}
               transition={{
                 duration: 2.4,
                 delay: 1 + i * 0.3,
@@ -111,7 +116,8 @@ export function NodeGraphBackground() {
             x={node.x}
             y={node.y - 12}
             textAnchor="middle"
-            fontSize="9"
+            fontSize={isLight ? "10" : "9"}
+            fontWeight={isLight ? "600" : "400"}
             fill="var(--color-text-tertiary)"
             fontFamily="ui-monospace, 'SF Mono', Menlo, Consolas, monospace"
             initial={{ opacity: 0 }}
@@ -125,7 +131,7 @@ export function NodeGraphBackground() {
             cy={node.y}
             r="10"
             fill="none"
-            stroke="rgba(255,255,255,0.08)"
+            stroke={isLight ? "rgba(59, 130, 246, 0.2)" : "rgba(255,255,255,0.08)"}
             strokeWidth="1"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

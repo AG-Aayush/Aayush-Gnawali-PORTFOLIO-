@@ -16,9 +16,9 @@ export function Certifications() {
         <div className="grid gap-5 sm:grid-cols-2">
           {certifications.map((cert, i) => (
             <Reveal key={cert.id} delay={i * 0.08}>
-              <GlassCard className="flex gap-4 p-5">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] text-[var(--color-accent-bright)]">
-                  <Award size={16} />
+              <GlassCard tilt className="flex gap-4 p-5">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--color-icon-border)] bg-[var(--color-icon-bg)] text-[var(--color-icon)] shadow-[0_0_18px_var(--color-accent-soft)] transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110">
+                  <Award size={18} strokeWidth={2.2} />
                 </div>
                 <div>
                   <div className="flex flex-wrap items-baseline gap-x-2">

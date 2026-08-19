@@ -280,7 +280,7 @@ export const achievements: Achievement[] = [
     id: "best-minor-project",
     title: "Best Minor Project",
     org: "Everest Engineering College",
-    date: "2024",
+    date: "2025",
     description:
       "Won best minor project among all 6th semester submissions for technical execution, problem solving, and presentation.",
   },

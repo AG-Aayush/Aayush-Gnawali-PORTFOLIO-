@@ -20,7 +20,7 @@ export function Skills() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {skills.map((category, i) => (
             <Reveal key={category.id} delay={i * 0.06}>
-              <GlassCard className="h-full p-5 transition-colors duration-300 hover:border-[var(--color-accent-dim)]">
+              <GlassCard tilt className="h-full p-5 transition-colors duration-300 hover:border-[var(--color-accent-dim)]">
                 <p className="font-mono-tag mb-4 text-[11px] uppercase tracking-widest text-[var(--color-accent-bright)]">
                   {category.label}
                 </p>

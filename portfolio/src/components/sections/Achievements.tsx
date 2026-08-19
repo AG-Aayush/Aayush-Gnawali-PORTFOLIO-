@@ -19,21 +19,26 @@ export function Achievements() {
         <div className="grid gap-6 lg:grid-cols-2">
           {achievements.map((achievement, i) => (
             <Reveal key={achievement.id} delay={i * 0.08}>
-              <GlassCard className="p-6">
+              <GlassCard tilt className="p-6 sm:p-7">
                 <div className="space-y-4">
-                  <div>
-                    <p className="text-sm font-semibold text-[var(--color-text-primary)]">
-                      {achievement.title}
-                    </p>
-                    <p className="mt-1 text-xs uppercase tracking-[0.28em] text-[var(--color-text-tertiary)]">
-                      {achievement.org}
-                    </p>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-3">
+                      <span className="mt-1 h-9 w-1 shrink-0 rounded-full bg-[var(--color-accent)] shadow-[0_0_18px_var(--color-accent-dim)]" />
+                      <div>
+                        <p className="text-base font-semibold text-[var(--color-text-primary)]">
+                          {achievement.title}
+                        </p>
+                        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-[var(--color-text-tertiary)]">
+                          {achievement.org}
+                        </p>
+                      </div>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-[var(--color-accent-dim)] bg-[var(--color-accent-soft)] px-2.5 py-1 font-mono-tag text-[10px] text-[var(--color-accent-bright)]">
+                      {achievement.date}
+                    </span>
                   </div>
                   <p className="text-sm text-[var(--color-text-secondary)]">
                     {achievement.description}
-                  </p>
-                  <p className="font-mono-tag text-[11px] text-[var(--color-text-tertiary)]">
-                    {achievement.date}
                   </p>
                 </div>
               </GlassCard>

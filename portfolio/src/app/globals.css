@@ -21,6 +21,14 @@
   --color-surface-hover: rgba(226, 232, 240, 0.6);
   --color-shadow: rgba(15, 23, 42, 0.08);
   --color-surface-strong: #ffffff;
+  --color-glass-bg: rgba(248, 250, 252, 0.58);
+  --color-glass-border: rgba(255, 255, 255, 0.72);
+  --color-glass-highlight: rgba(255, 255, 255, 0.72);
+  --color-chip-bg: rgba(255, 255, 255, 0.58);
+  --color-chip-border: rgba(30, 41, 59, 0.16);
+  --color-icon-bg: rgba(59, 130, 246, 0.12);
+  --color-icon-border: rgba(59, 130, 246, 0.3);
+  --color-icon: #2563eb;
 }
 
 html {
@@ -44,6 +52,14 @@ html.dark {
   --color-accent-soft: rgba(196, 181, 253, 0.14);
   --color-shadow: rgba(0, 0, 0, 0.24);
   --color-surface-strong: #1b1224;
+  --color-glass-bg: rgba(35, 25, 46, 0.86);
+  --color-glass-border: rgba(196, 181, 253, 0.26);
+  --color-glass-highlight: rgba(255, 255, 255, 0.16);
+  --color-chip-bg: rgba(196, 181, 253, 0.12);
+  --color-chip-border: rgba(196, 181, 253, 0.28);
+  --color-icon-bg: rgba(196, 181, 253, 0.2);
+  --color-icon-border: rgba(196, 181, 253, 0.48);
+  --color-icon: #ddd6fe;
   background: radial-gradient(circle at top left, rgba(112, 78, 171, 0.18), transparent 18%),
     radial-gradient(circle at bottom right, rgba(75, 46, 126, 0.16), transparent 24%),
     linear-gradient(180deg, #2d1f33 0%, #211625 45%, #0d0b14 100%);

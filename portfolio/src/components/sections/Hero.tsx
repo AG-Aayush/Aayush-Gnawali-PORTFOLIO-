@@ -260,7 +260,7 @@ export function Hero() {
               external
               download
             >
-              Download résumé
+              Download resume
             </Button>
           </motion.div>
 

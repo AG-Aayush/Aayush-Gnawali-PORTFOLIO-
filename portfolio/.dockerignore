@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+.env*
+private
+npm-debug.log*
+README.md
+Rag.md

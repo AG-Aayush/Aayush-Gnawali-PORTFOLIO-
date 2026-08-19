@@ -15,7 +15,7 @@ export function GlassCard({
   as?: "div" | "article";
   tilt?: boolean;
 }) {
-  const cardRef = useRef<HTMLDivElement | HTMLElement | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
   function handlePointerMove(event: React.PointerEvent<HTMLElement>) {
     if (!tilt || event.pointerType === "touch") return;

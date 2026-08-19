@@ -15,7 +15,20 @@ Visit `http://localhost:3000`.
 npm run build   # production build, static-optimized
 npm run start   # serve the production build
 npm run lint    # ESLint
+npm run typecheck # TypeScript validation
 ```
+
+## DevOps workflow
+
+See [DevOps.md](DevOps.md) for the implementation runbook covering GitHub Actions, Docker, Docker Compose, health checks, branch protection, secrets, deployment, and the foundation for the RAG pipeline.
+
+Run the production-like container locally with Docker Desktop running:
+
+```bash
+docker compose up --build
+```
+
+The health endpoint is available at `http://localhost:3000/api/health`.
 
 ## Updating content
 

@@ -2,6 +2,96 @@
 
 This guide sets up the DevOps foundation before the RAG pipeline. The goal is not to add tools for decoration. The goal is to make every change reproducible, tested, containerized, and deployable.
 
+## Current Status
+
+The DevOps files are already implemented in this repository. You do not need to recreate them. The remaining work is to commit the latest local changes, confirm GitHub settings, and optionally run Docker locally.
+
+Implemented components:
+
+| Component | What it teaches |
+| --- | --- |
+| `package.json` scripts | Reproducible lint, typecheck, build, and combined CI checks |
+| `.github/workflows/ci.yml` | Automated quality gates and Docker image builds |
+| `.github/workflows/codeql.yml` | JavaScript and TypeScript security analysis |
+| `.github/dependabot.yml` | Automated dependency and Actions update proposals |
+| `Dockerfile` | Multi-stage, standalone, non-root production containers |
+| `docker-compose.yml` | Repeatable local production-like execution |
+| `/api/health` | Runtime health checks for Docker and deployment hosts |
+| `.github/CODEOWNERS` | Review ownership |
+| Pull request template | Repeatable validation and security checklist |
+| `SECURITY.md` | Private vulnerability reporting guidance |
+
+Direct pushes to `main` are supported and trigger GitHub Actions. Pull requests are recommended for review but are not required for the automation to run.
+
+## Manual Steps Still Required
+
+### 1. Commit and push the current additions
+
+The latest DevOps additions are local until you commit and push them:
+
+```powershell
+cd D:\Download\aayush-portfolio\portfolio
+git status
+git add .github .gitignore DevOps.md README.md package.json SECURITY.md
+git commit -m "improve DevOps automation and security practices"
+git push origin main
+```
+
+Review `next-env.d.ts` separately before staging it if it appears modified. Never commit `.env.local`, API keys, private CV files, or generated caches.
+
+### 2. Confirm GitHub Actions
+
+After pushing, open the repository's **Actions** tab. You should see:
+
+```text
+CI
+CodeQL
+```
+
+If Actions are disabled, enable them under **Settings -> Actions -> General**. Also enable Dependabot alerts, Dependabot security updates, secret scanning, push protection, and private vulnerability reporting when those features are available for the repository.
+
+### 3. Decide whether to protect `main`
+
+For team-style practice, configure **Settings -> Branches** and require pull requests, successful CI checks, CodeQL where available, and no force pushes. For a solo portfolio, direct commits are valid as long as CI and CodeQL results are reviewed after every push. Do not create fake pull-request history.
+
+### 4. Verify Docker locally
+
+Start Docker Desktop, then run:
+
+```powershell
+cd D:\Download\aayush-portfolio\portfolio
+docker compose up --build
+```
+
+In another terminal, check:
+
+```powershell
+Invoke-WebRequest http://localhost:3000/api/health
+```
+
+Stop the service with `Ctrl+C` or `docker compose down`. If Docker reports that its Linux engine or named pipe is unavailable, Docker Desktop is not running.
+
+### 5. Configure deployment
+
+Choose one deployment target manually. For Vercel, connect the repository and select `main`. For Render, Railway, or Fly.io, build from the Dockerfile, expose port `3000`, and use `/api/health` as the health path. For a VPS or AWS, you must additionally configure TLS, firewall rules, logs, backups, image pulling, and rollback.
+
+Do not add RAG provider keys yet. When RAG is implemented, put those keys in the deployment host's secret manager, never in Git or browser code.
+
+## How to Learn the Implementation
+
+Read the files in this order:
+
+1. `package.json`: the validation commands used locally and in CI.
+2. `.github/workflows/ci.yml`: how GitHub automates those commands.
+3. `Dockerfile`: why dependencies, build, and runtime are separate stages.
+4. `docker-compose.yml`: how the app runs consistently on a developer machine.
+5. `src/app/api/health/route.ts`: how a service exposes a safe liveness check.
+6. `.github/workflows/codeql.yml`: how security analysis runs on pushes, pull requests, and a schedule.
+7. `.github/dependabot.yml`: how updates are proposed automatically.
+8. `.github/CODEOWNERS`, the PR template, and `SECURITY.md`: ownership, review, and vulnerability process.
+
+The learning principle is: GitHub Actions does not replace understanding. It automates commands you should first be able to run locally with `npm run ci`.
+
 ## What was added
 
 ```text
@@ -12,6 +102,10 @@ Dockerfile                   multi-stage production image
 .dockerignore                files excluded from the image
 docker-compose.yml            local production-like run
 .github/workflows/ci.yml     GitHub Actions quality and image checks
+.github/workflows/codeql.yml CodeQL security analysis
+.github/dependabot.yml       dependency and Actions update automation
+.github/CODEOWNERS            review ownership
+SECURITY.md                   vulnerability reporting policy
 ```
 
 ## The delivery flow
@@ -38,7 +132,7 @@ deploy to a host such as Render, Fly.io, Railway, AWS, or a VPS
 health check confirms the service is alive
 ```
 
-The first milestone is CI. Automatic deployment should come only after CI is reliable.
+The first milestone is CI. Automatic deployment should come only after CI is reliable. Direct pushes to `main` are supported by the current workflow, so a pull request is not required for Actions to run. Pull requests are still recommended for review and are supported by the template and branch-protection instructions below.
 
 ## 1. Run the quality gates locally
 
@@ -186,7 +280,9 @@ In GitHub repository settings:
 7. Disable force pushes to `main`.
 8. Decide whether to require signed commits.
 
-After this, a broken build cannot be merged through the normal GitHub workflow.
+After this, a broken build cannot be merged through the normal GitHub workflow. This is a GitHub repository setting, not something a committed workflow can enforce by itself.
+
+If you are intentionally working alone and committing directly to `main`, keep the CI and CodeQL workflows enabled and review their results after every push. The repository can still demonstrate DevOps automation without pretending that a pull request was used.
 
 ## 7. Branch and commit workflow
 

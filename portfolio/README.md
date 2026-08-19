@@ -22,6 +22,8 @@ npm run typecheck # TypeScript validation
 
 See [DevOps.md](DevOps.md) for the implementation runbook covering GitHub Actions, Docker, Docker Compose, health checks, branch protection, secrets, deployment, and the foundation for the RAG pipeline.
 
+Repository automation also includes CodeQL analysis, Dependabot update configuration, CODEOWNERS, a pull request checklist, and a security reporting policy.
+
 Run the production-like container locally with Docker Desktop running:
 
 ```bash

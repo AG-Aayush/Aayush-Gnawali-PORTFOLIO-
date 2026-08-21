@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
-import { answerQuery, suggestedPrompts } from "@/data/chatKnowledgeBase";
+import { suggestedPrompts } from "@/data/chatKnowledgeBase";
 import { personal } from "@/data/resume";
 import { cn } from "@/lib/utils";
 
@@ -39,7 +39,7 @@ export function ChatWidget() {
     if (open) inputRef.current?.focus();
   }, [open]);
 
-  function send(text: string) {
+  async function send(text: string) {
     const trimmed = text.trim();
     if (!trimmed) return;
 
@@ -48,15 +48,37 @@ export function ChatWidget() {
     setInput("");
     setTyping(true);
 
-    // Local, deterministic lookup — no external API involved.
-    window.setTimeout(() => {
-      const answer = answerQuery(trimmed);
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          message: trimmed,
+          history: messages.slice(-12).map(({ role, text }) => ({ role, content: text })),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Chat request failed");
+      }
+
+      const result = await response.json();
       setMessages((prev) => [
         ...prev,
-        { id: crypto.randomUUID(), role: "assistant", text: answer },
+        { id: crypto.randomUUID(), role: "assistant", text: result.answer ?? "I couldn't answer that yet." },
       ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          text: "The assistant is temporarily unavailable. Please use the Contact section.",
+        },
+      ]);
+    } finally {
       setTyping(false);
-    }, THINKING_DELAY_MS);
+    }
   }
 
   return (

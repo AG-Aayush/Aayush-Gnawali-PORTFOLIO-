@@ -2,6 +2,20 @@
 
 This guide explains how to replace the current deterministic FAQ assistant with a Retrieval-Augmented Generation (RAG) assistant for this Next.js portfolio.
 
+## Python or TypeScript?
+
+Use **Python for the RAG service** and keep **Next.js/TypeScript for the portfolio UI**. Python is a strong choice for AI engineering because its embedding, retrieval, evaluation, and model ecosystem is broader. This also gives you a project you can discuss for both AI engineering and backend roles.
+
+Python can be part of this same repository, but a Next.js `.ts` file cannot directly import and execute a Python module. Run the RAG backend as a small FastAPI service and call it from the Next.js server route:
+
+```text
+ChatWidget.tsx -> Next.js /api/chat -> Python FastAPI RAG service -> PostgreSQL/pgvector + LLM provider
+```
+
+Keep the Next.js route as a private proxy. It should validate the browser request, forward only the needed text to FastAPI, and return the validated answer. The LLM key, database URL, embeddings, retrieval, prompts, and private-document rules stay in Python and are never sent to the browser.
+
+The Python service can be stored in `rag-service/` beside the Next.js app and deployed separately, for example on Render, Railway, or another Python-capable host. The portfolio frontend can remain deployed on Vercel.
+
 It is written as a build book: complete the stages in order, keep each stage working, and only add the next piece after the previous one is tested.
 
 > **Important:** This guide is instructional. It does not install packages, create API routes, upload your CV, or expose an LLM key. Those steps should be implemented deliberately and tested locally before deployment.
@@ -18,19 +32,20 @@ Do not start by adding LangChain, agents, or a vector database dashboard. First 
 
 ```text
 1. Create a private server boundary
-2. Install the minimum packages
-3. Add environment variables safely
-4. Create the RAG folders
-5. Create the database table
-6. Turn resume data into approved text
-7. Ingest chunks and embeddings once
-8. Retrieve chunks for a question
-9. Generate a cited answer on the server
-10. Connect ChatWidget to /api/chat
-11. Add tests, rate limits, and monitoring
+2. Create the Python FastAPI RAG service
+3. Install the minimum Python packages
+4. Add environment variables safely
+5. Create the RAG folders
+6. Create the database table
+7. Turn approved portfolio data into text
+8. Ingest chunks and embeddings once
+9. Retrieve chunks for a question
+10. Generate a cited answer in Python
+11. Connect the Next.js proxy and ChatWidget
+12. Add tests, rate limits, and monitoring
 ```
 
-At the end of step 10, you have a working RAG chatbot. Steps 11 and later make it safer and more production-ready.
+At the end of step 11, you have a working RAG chatbot. Steps 12 and later make it safer and more production-ready.
 
 ## Step 0: Confirm the current project
 
@@ -62,42 +77,94 @@ Use this first version:
 | Embeddings | Provider's current embedding model |
 | Vector store | PostgreSQL with pgvector, such as Supabase or Neon |
 | Validation | Zod |
-| Ingestion | A local Node script run manually |
+| RAG service | Python FastAPI service in `rag-service/` |
+| Ingestion | A local Python script run manually |
 | Documents | Approved `resume.ts` data and public resume PDF |
-| Framework | Direct SDK and SQL first; LangChain later if useful |
+| Framework | Direct Python SDK and SQL first; LangChain later if useful |
 
-Why this shape? It has fewer moving parts, makes the security boundary obvious, and lets you explain every RAG step in an interview.
+Why this shape? It keeps the frontend focused on the portfolio experience, gives the AI pipeline Python's mature ecosystem, makes the security boundary obvious, and lets you explain every RAG step in an interview. It does add a small second service, so the simplest all-in-one deployment remains the TypeScript option described later in this guide.
 
-## Step 2: Install the minimum packages
+## Python service structure
 
-Install only the packages needed for the first implementation:
+Create this beside the existing `src/` folder:
 
-```powershell
-npm install openai zod postgres
-npm install -D tsx
+```text
+rag-service/
+  app/
+    main.py
+    config.py
+    models.py
+    serialize_resume.py
+    chunk.py
+    embeddings.py
+    retrieval.py
+    prompt.py
+    safety.py
+    answer.py
+  scripts/
+    ingest.py
+    test_retrieval.py
+  requirements.txt
+  .env.example
 ```
 
-Use the provider's official SDK documentation to confirm the package and current API methods before coding. Model names and SDK APIs change.
+Suggested first packages:
 
-For PDF extraction, choose a maintained extractor after checking its current compatibility with your Node version. Keep PDF extraction in the ingestion script, never in the public request route:
-
-```powershell
-npm install pdf-parse
+```text
+fastapi
+uvicorn[standard]
+openai
+psycopg[binary]
+pgvector
+pydantic-settings
+python-dotenv
 ```
 
-If that package is incompatible with your current Node version, use a maintained alternative or extract the PDF once with a local tool and review the resulting text manually. Do not let a PDF parser block the first test: begin with `resume.ts` serialization.
+The Python service cannot import `src/data/resume.ts` directly. Either maintain an approved `rag-service/app/portfolio_data.json` export, or expose a deliberate build step that serializes the approved TypeScript data into JSON before ingestion. Do not duplicate private information casually; keep one reviewed public source of truth.
+
+The detailed `src/lib/rag/*.ts`, `scripts/ingest-rag.ts`, and TypeScript type examples later in this document describe the **all-TypeScript alternative**. If you choose Python, implement the equivalent responsibilities inside `rag-service/app/` and `rag-service/scripts/` instead of creating those TypeScript RAG modules. The Next.js `src/app/api/chat/route.ts` remains only as the proxy to FastAPI.
+
+## Step 2: Install the minimum Python packages
+
+Create and activate a virtual environment from the `portfolio` directory:
+
+```powershell
+cd d:\Download\aayush-portfolio\portfolio\rag-service
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Put these packages in `rag-service/requirements.txt`:
+
+```text
+fastapi
+uvicorn[standard]
+openai
+psycopg[binary]
+pgvector
+pydantic-settings
+python-dotenv
+```
+
+Use the provider's official Python SDK documentation to confirm the package, model names, and current API methods before coding. For PDF extraction, use a maintained Python extractor in the manual ingestion script, never in the public request route. Do not let PDF parsing block the first test; begin with approved portfolio data exported as JSON.
 
 ## Step 3: Create environment variables
 
-Create `.env.local` in the `portfolio` directory:
+Create `.env.local` for the Next.js proxy and `.env` inside `rag-service/` for the Python service:
 
 ```env
+# rag-service/.env
 LLM_API_KEY=your_provider_key
 LLM_MODEL=choose_current_small_model
 EMBEDDING_MODEL=choose_current_embedding_model
 DATABASE_URL=your_postgres_connection_string
 RAG_DOCUMENT_VERSION=2026-08-19
 RAG_MIN_SIMILARITY=0.72
+
+# portfolio/.env.local
+RAG_SERVICE_URL=http://127.0.0.1:8000
 ```
 
 Rules:
@@ -113,55 +180,56 @@ Check `.gitignore` includes:
 ```gitignore
 .env*
 private/
+rag-service/.venv/
 ```
 
 ## Step 4: Create the implementation folders
 
-Create this structure:
+Create this structure inside the existing portfolio repository:
 
 ```text
 portfolio/
   scripts/
-    ingest-rag.ts
-    test-rag-retrieval.ts
-  private/
-    README.md
-    Aayush_CV.pdf              # optional, never public
+  rag-service/
+    app/
+      main.py
+      config.py
+      models.py
+      serialize_resume.py
+      chunk.py
+      embeddings.py
+      retrieval.py
+      prompt.py
+      safety.py
+      answer.py
+    scripts/
+      ingest.py
+      test_retrieval.py
+    requirements.txt
+    .env.example
   src/
     app/
       api/
         chat/
           route.ts
-    lib/
-      rag/
-        types.ts
-        config.ts
-        server.ts
-        serializeResume.ts
-        chunk.ts
-        embeddings.ts
-        retrieval.ts
-        prompt.ts
-        safety.ts
-        answer.ts
 ```
 
 What each file owns:
 
 | File | Responsibility |
 | --- | --- |
-| `types.ts` | Shared chunk, match, citation, and answer types |
-| `config.ts` | Read and validate server environment variables |
-| `server.ts` | Mark the module server-only and create provider/database clients |
-| `serializeResume.ts` | Convert approved structured resume data into source text |
-| `chunk.ts` | Split source text into meaningful chunks |
-| `embeddings.ts` | Create vectors for ingestion and questions |
-| `retrieval.ts` | Search public active chunks only |
-| `prompt.ts` | Build the closed-world generation prompt |
-| `safety.ts` | Input limits, private-topic checks, and safe fallbacks |
-| `answer.ts` | Call the model and validate structured output |
-| `route.ts` | Orchestrate one safe chat request |
-| `ingest-rag.ts` | Run ingestion manually, never per visitor |
+| `main.py` | Expose the private FastAPI endpoint |
+| `config.py` | Read and validate Python service environment variables |
+| `models.py` | Define request, chunk, citation, and answer models |
+| `serialize_resume.py` | Convert approved portfolio JSON into source text |
+| `chunk.py` | Split source text into meaningful chunks |
+| `embeddings.py` | Create vectors for ingestion and questions |
+| `retrieval.py` | Search public active chunks only |
+| `prompt.py` | Build the closed-world generation prompt |
+| `safety.py` | Input limits, private-topic checks, and safe fallbacks |
+| `answer.py` | Call the model and validate structured output |
+| `route.ts` | Validate browser requests and proxy them to FastAPI |
+| `ingest.py` | Run ingestion manually, never per visitor |
 
 Keep the browser component unaware of provider SDKs, SQL, embeddings, and private documents.
 

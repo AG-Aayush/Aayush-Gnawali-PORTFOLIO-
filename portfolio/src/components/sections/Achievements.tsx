@@ -11,7 +11,7 @@ export function Achievements() {
     >
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionHeading
-          eyebrow="02.5 · Achievements"
+          eyebrow="Achievements"
           title="Recognition for work and leadership"
           description="Awards and leadership roles that speak to execution, communication, and a practical approach to technical projects."
         />

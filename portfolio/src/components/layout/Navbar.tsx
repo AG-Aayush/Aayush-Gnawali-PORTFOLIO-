@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, Moon, SunMedium } from "lucide-react";
 import { personal } from "@/data/resume";
@@ -13,6 +13,7 @@ const NAV_ITEMS = [
   { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
   { id: "certifications", label: "Certifications" },
+  { id: "social", label: "Social" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -28,6 +29,40 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavigation = (event: MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    event.preventDefault();
+
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const current = document.getElementById(activeId);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    setActiveId(targetId);
+    window.history.pushState(null, "", `#${targetId}`);
+
+    if (reducedMotion) {
+      target.scrollIntoView({ block: "start" });
+      setMobileOpen(false);
+      return;
+    }
+
+    current?.classList.add("section-transition-out");
+    target.classList.remove("section-transition-in");
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    requestAnimationFrame(() => {
+      target.classList.add("section-transition-in");
+    });
+
+    window.setTimeout(() => {
+      current?.classList.remove("section-transition-out");
+      target.classList.remove("section-transition-in");
+    }, 720);
+
+    setMobileOpen(false);
+  };
 
   useEffect(() => {
     const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(
@@ -74,6 +109,7 @@ export function Navbar() {
             <li key={item.id} className="relative">
               <a
                 href={`#${item.id}`}
+                onClick={(event) => handleNavigation(event, item.id)}
                 className={cn(
                   "relative block px-3 py-2 text-sm transition-colors duration-200",
                   activeId === item.id
@@ -138,7 +174,7 @@ export function Navbar() {
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    onClick={() => setMobileOpen(false)}
+                    onClick={(event) => handleNavigation(event, item.id)}
                     className={cn(
                       "block py-3 text-sm",
                       activeId === item.id

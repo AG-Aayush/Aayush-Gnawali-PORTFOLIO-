@@ -117,7 +117,7 @@ export function Projects() {
       className="scroll-mt-24 border-t border-[var(--color-border)] py-24 lg:py-32"
     >
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <SectionHeading eyebrow="03 · Projects" title="Projects I’ve built" />
+        <SectionHeading eyebrow="Projects" title="Projects I’ve built" />
       </div>
 
       <div className="relative h-[420vh] lg:h-[500vh]">

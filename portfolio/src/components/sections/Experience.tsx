@@ -11,7 +11,7 @@ export function Experience() {
     >
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionHeading
-          eyebrow="02 · Experience"
+          eyebrow="Experience"
           title="Internships & hands-on work"
           description="Real production internships and project-driven team experience with backend, DevOps, QA, and infrastructure."
         />

@@ -9,11 +9,13 @@ export function GlassCard({
   className,
   as: Tag = "div",
   tilt = false,
+  tiltStrength = 9,
 }: {
   children: ReactNode;
   className?: string;
   as?: "div" | "article";
   tilt?: boolean;
+  tiltStrength?: number;
 }) {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
@@ -26,7 +28,7 @@ export function GlassCard({
     const bounds = card.getBoundingClientRect();
     const x = (event.clientX - bounds.left) / bounds.width - 0.5;
     const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    card.style.transform = `perspective(900px) rotateX(${y * -9}deg) rotateY(${x * 9}deg) translateY(-10px) scale(1.015)`;
+    card.style.transform = `perspective(900px) rotateX(${y * -tiltStrength}deg) rotateY(${x * tiltStrength}deg) translateY(-10px) scale(1.015)`;
   }
 
   function handlePointerLeave() {

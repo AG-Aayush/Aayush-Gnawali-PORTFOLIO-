@@ -21,7 +21,7 @@ export function Social() {
     <section id="social" className="scroll-mt-24 border-t border-[var(--color-border)] py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionHeading
-          eyebrow="06 · Social / Connect"
+          eyebrow="Social"
           title="Find me across the internet"
           description="Here are the places where I publish, code, and share the work I’m building."
         />

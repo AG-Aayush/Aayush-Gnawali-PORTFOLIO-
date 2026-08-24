@@ -10,15 +10,19 @@ import { GlassCard } from "@/components/ui/GlassCard";
 export function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("Message from Portfolio");
   const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const defaultSubject = encodeURIComponent("Portfolio inquiry for Aayush Gnawali");
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    const subject = encodeURIComponent(`Portfolio contact from ${name || "a visitor"}`);
+    const encodedSubject = encodeURIComponent(
+      subject.trim() || `Portfolio contact from ${name || "a visitor"}`
+    );
     const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:${personal.email}?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${personal.email}?subject=${encodedSubject}&body=${body}`;
     setSubmitted(true);
   }
 
@@ -29,16 +33,16 @@ export function Contact() {
     >
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         <SectionHeading
-          eyebrow="06 · Contact"
+          eyebrow="Contact"
           title="Let's talk about a role"
-          description="Open to remote backend, DevOps, DevSecOps, and AI/ML opportunities. The fastest way to reach me is email."
+          description="Open to on-site, hybrid, and remote opportunities in backend engineering, DevOps, and AI/ML. The fastest way to reach me is email."
         />
 
         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.4fr]">
           <Reveal>
             <div className="flex h-full items-center justify-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)]/70 p-6">
               <a
-                href={`mailto:${personal.email}`}
+                href={`mailto:${personal.email}?subject=${defaultSubject}`}
                 className="group inline-flex items-center gap-3 rounded-full border border-[var(--color-accent)] bg-[var(--color-accent)] px-5 py-3 text-left text-white shadow-[0_10px_30px_rgba(59,130,246,0.2)] transition duration-200 hover:-translate-y-0.5 hover:opacity-95"
               >
                 <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/12 text-white">
@@ -114,6 +118,25 @@ export function Contact() {
                         placeholder="youremail@email.com"
                       />
                     </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="subject"
+                      className="mb-1.5 block text-xs text-[var(--color-text-tertiary)]"
+                    >
+                      Subject
+                    </label>
+                    <input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      required
+                      value={subject}
+                      onChange={(e) => setSubject(e.target.value)}
+                      className="w-full rounded-md border border-[var(--color-border-strong)] bg-[var(--color-bg-elevated)] px-3.5 py-2.5 text-sm text-[var(--color-accent-bright)] outline-none transition-colors placeholder:text-[var(--color-text-tertiary)] focus:border-[var(--color-accent)]"
+                      placeholder="Portfolio inquiry"
+                    />
                   </div>
 
                   <div>

@@ -7,7 +7,7 @@ export function About() {
   return (
     <section id="about" className="scroll-mt-24 border-t border-[var(--color-border)] py-24 lg:py-32">
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        <SectionHeading eyebrow="01 · About" title="Building the layer things depend on" />
+        <SectionHeading eyebrow="About" title="Building the layer things depend on" />
 
         <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr]">
           <div className="space-y-5">

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
-import { useEffect, useRef } from "react";
 import { personal } from "@/data/resume";
 import { useTheme } from "@/components/layout/ThemeProvider";
 import { Button } from "@/components/ui/Button";
@@ -14,146 +13,6 @@ const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export function Hero() {
   const { theme } = useTheme();
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const pointerTarget = useRef({ x: 0, y: 0 });
-  const pointerCurrent = useRef({ x: 0, y: 0 });
-  const velocityRef = useRef({ x: 0, y: 0 });
-  const trailRef = useRef<Array<{ x: number; y: number; vx: number; vy: number; radius: number }>>([]);
-  const frameRef = useRef<number | null>(null);
-
-  useEffect(() => {
-    const media = window.matchMedia("(pointer: fine)");
-    if (!media.matches) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = Math.floor(window.innerWidth * dpr);
-      canvas.height = Math.floor(window.innerHeight * dpr);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-
-    const handlePointerMove = (event: PointerEvent) => {
-      const tx = event.clientX;
-      const ty = event.clientY;
-      const dx = tx - pointerTarget.current.x;
-      const dy = ty - pointerTarget.current.y;
-      const speed = Math.min(Math.hypot(dx, dy), 40);
-
-      pointerTarget.current = { x: tx, y: ty };
-      velocityRef.current = { x: dx * 0.7, y: dy * 0.7 };
-
-      if (speed > 0.35) {
-        trailRef.current.push({
-          x: tx,
-          y: ty,
-          vx: dx,
-          vy: dy,
-          radius: 18 + speed * 0.8,
-        });
-      }
-
-      if (trailRef.current.length > 18) {
-        trailRef.current.shift();
-      }
-    };
-
-    const handlePointerLeave = () => {
-      trailRef.current = [];
-    };
-
-    const render = () => {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-      const dx = pointerTarget.current.x - pointerCurrent.current.x;
-      const dy = pointerTarget.current.y - pointerCurrent.current.y;
-      pointerCurrent.current.x += dx * 0.18;
-      pointerCurrent.current.y += dy * 0.18;
-
-      const baseSpeed = Math.hypot(velocityRef.current.x, velocityRef.current.y);
-      const trailIntensity = Math.min(1, baseSpeed / 32);
-
-      for (let i = 0; i < trailRef.current.length; i += 1) {
-        const point = trailRef.current[i];
-        const alpha = (i + 1) / trailRef.current.length;
-        const blobRadius = Math.max(12, point.radius * (0.4 + alpha * 1.4));
-        const gradient = ctx.createRadialGradient(
-          point.x,
-          point.y,
-          0,
-          point.x,
-          point.y,
-          blobRadius * 1.7
-        );
-
-        gradient.addColorStop(0, `rgba(224, 231, 255, ${0.72 * alpha})`);
-        gradient.addColorStop(0.18, `rgba(196, 181, 253, ${0.56 * alpha})`);
-        gradient.addColorStop(0.42, `rgba(129, 140, 248, ${0.32 * alpha})`);
-        gradient.addColorStop(1, "rgba(59, 130, 246, 0)");
-
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, blobRadius * 1.4, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      const glow = ctx.createRadialGradient(
-        pointerCurrent.current.x,
-        pointerCurrent.current.y,
-        0,
-        pointerCurrent.current.x,
-        pointerCurrent.current.y,
-        36 + trailIntensity * 18
-      );
-      glow.addColorStop(0, "rgba(255, 255, 255, 0.9)");
-      glow.addColorStop(0.28, "rgba(191, 219, 254, 0.8)");
-      glow.addColorStop(0.56, "rgba(165, 180, 252, 0.42)");
-      glow.addColorStop(1, "rgba(96, 165, 250, 0)");
-
-      ctx.fillStyle = glow;
-      ctx.beginPath();
-      ctx.arc(pointerCurrent.current.x, pointerCurrent.current.y, 28 + trailIntensity * 18, 0, Math.PI * 2);
-      ctx.fill();
-
-      const smallDot = ctx.createRadialGradient(
-        pointerCurrent.current.x,
-        pointerCurrent.current.y,
-        0,
-        pointerCurrent.current.x,
-        pointerCurrent.current.y,
-        10
-      );
-      smallDot.addColorStop(0, "rgba(255,255,255,0.95)");
-      smallDot.addColorStop(0.25, "rgba(196,181,253,0.88)");
-      smallDot.addColorStop(1, "rgba(96,165,250,0)");
-      ctx.fillStyle = smallDot;
-      ctx.beginPath();
-      ctx.arc(pointerCurrent.current.x, pointerCurrent.current.y, 11, 0, Math.PI * 2);
-      ctx.fill();
-
-      frameRef.current = requestAnimationFrame(render);
-    };
-
-    resizeCanvas();
-    window.addEventListener("pointermove", handlePointerMove, { passive: true });
-    window.addEventListener("pointerleave", handlePointerLeave);
-    window.addEventListener("resize", resizeCanvas);
-    frameRef.current = requestAnimationFrame(render);
-
-    return () => {
-      if (frameRef.current) cancelAnimationFrame(frameRef.current);
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerleave", handlePointerLeave);
-      window.removeEventListener("resize", resizeCanvas);
-    };
-  }, []);
 
   return (
     <section
@@ -167,12 +26,6 @@ export function Hero() {
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.15),_transparent_20%),radial-gradient(circle_at_bottom_right,_rgba(181,108,75,0.14),_transparent_22%)]"
         aria-hidden="true"
-      />
-
-      <canvas
-        ref={canvasRef}
-        aria-hidden="true"
-        className="pointer-events-none fixed inset-0 z-[80]"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6 lg:px-8">

@@ -2,7 +2,7 @@
 export const personal = {
   name: "Aayush Gnawali",
   firstName: "Aayush",
-  role: "AI • Backend • DevOps",
+  role: "AI • DevOps • Backend",
   location: "Kathmandu, Nepal",
   tagline:
     "I build AI-assisted systems and reliable backend platforms that are designed to scale and stay dependable.",
@@ -15,7 +15,7 @@ export const personal = {
   profilePictureDark: "/Aayush-profile.jpeg",
   resumeFile: "/Aayush_Gnawali_CV.pdf",
   availability: "open_to_work",
-  focusAreas: ["AI & RAG", "Backend Development", "School Management Systems", "DevOps"],
+  focusAreas: ["AI & RAG", "DevOps", "Backend Development", "School Management Systems"],
 } as const;
 
 export const about = {
@@ -28,7 +28,7 @@ export const about = {
   highlights: [
     { label: "Focus", value: "Backend & Infrastructure" },
     { label: "Currently", value: "8th Semester, B.E. IT" },
-    { label: "Interested in", value: "DevSecOps · Cloud" },
+    { label: "Interested in", value: "AI/ML · DevOps" },
   ],
 } as const;
 

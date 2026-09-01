@@ -85,7 +85,7 @@ export function Hero() {
             transition={{ duration: 0.65, delay: 0.2, ease: easeOut }}
             className="mt-4 text-xl text-[var(--color-text-secondary)] sm:text-2xl"
           >
-            DevOps • DevSecOps • AI/ML • Backend
+            {personal.role}
           </motion.p>
 
           <motion.p

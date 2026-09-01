@@ -13,7 +13,7 @@ export const personal = {
   instagram: "https://www.instagram.com/ayushgnawali/",
   profilePicture: "/Aayush.jpeg",
   profilePictureDark: "/Aayush-profile.jpeg",
-  resumeFile: "/Aayush_Resume.pdf",
+  resumeFile: "/Aayush_Gnawali_CV.pdf",
   availability: "open_to_work",
   focusAreas: ["AI & RAG", "Backend Development", "School Management Systems", "DevOps"],
 } as const;
@@ -45,38 +45,35 @@ export type ExperienceEntry = {
 
 export const experience: ExperienceEntry[] = [
   {
+    id: "e-digital-nepal",
+    role: "Backend and QA Intern",
+    org: "E-Digital Nepal Pvt. Ltd.",
+    period: "May 2026 – August 2026",
+    location: "On-site",
+    summary:
+      "Worked on backend services and QA validation for a school management platform, supporting API development, access control, secure data handling, and testing workflows.",
+    points: [
+      "Developed and maintained backend services using Python and PostgreSQL for APIs, authentication, role-based access control, and secure data management.",
+      "Performed manual testing of backend and application features to identify functional issues and verify expected system behavior.",
+      "Learned and applied automated testing using pytest and Selenium to improve test coverage and understand automated testing workflows.",
+      "Contributed to admin tools, dynamic form management, user tracking, and other platform features while collaborating with the engineering team.",
+    ],
+    stack: ["Python", "PostgreSQL", "FastAPI", "pytest", "Selenium", "Authentication", "RBAC", "QA"],
+  },
+  {
     id: "lego-tech",
     role: "DevOps Intern",
     org: "Lego Tech Pvt. Ltd.",
     period: "2026",
     location: "Remote",
     summary:
-      "Worked remotely on a DevOps-focused internship, gaining hands-on exposure to Linux administration, Docker workflows, and core deployment concepts in a live engineering environment.",
+      "Worked remotely on DevOps workflows, gaining hands-on experience in Linux, containerization, deployment configuration, and cloud infrastructure basics.",
     points: [
-      "Applied Linux fundamentals and Bash scripting to support daily system and development workflows.",
-      "Built and ran containerized services using Docker and Docker Compose with YAML-based configuration and deployment tasks.",
-      "Gained practical exposure to AWS core services such as EC2 for infrastructure support and deployment basics.",
-      "Learned CI/CD concepts, server fundamentals, and professional DevOps workflows while working with a distributed team.",
-      "Used Git for version control across infrastructure and application-related tasks.",
+      "Worked with Linux, Bash, Docker, Docker Compose, Git, and CI/CD across development and deployment workflows.",
+      "Containerized services and supported deployment and environment configuration tasks using Docker and YAML-based configuration.",
+      "Gained practical experience with AWS EC2, cloud infrastructure, deployment fundamentals, and distributed engineering workflows.",
     ],
-    stack: ["Linux", "Bash", "Docker", "Docker Compose", "YAML", "Git", "CI/CD", "AWS"],
-  },
-  {
-    id: "e-digital-nepal",
-    role: "AI & Backend Intern",
-    org: "E-Digital Nepal Pvt. Ltd.",
-    period: "May 2026 - August 2026",
-    location: "On-site",
-    summary:
-      "Worked on AI assistant, document ingestion, and backend systems for school management and education technology platforms, contributing to production-grade RAG and API workflows.",
-    points: [
-      "Developed AI assistant features, document ingestion pipelines, semantic search, knowledge base integrations, and Retrieval-Augmented Generation (RAG) workflows.",
-      "Built backend services using Python and PostgreSQL for APIs, authentication, role-based access control, and secure data management.",
-      "Contributed to admin tools, dynamic form management, user tracking, monitoring, and overall platform reliability for school management systems.",
-      "Implemented secure data handling practices and maintained strict data separation across school management environments.",
-      "Collaborated with the engineering team on conversational workflows and production-facing AI/backend improvements that supported organizational platform goals.",
-    ],
-    stack: ["Python", "PostgreSQL", "FastAPI", "RAG", "Semantic Search", "AI Assistants", "Authentication", "RBAC", "School Management"],
+    stack: ["Linux", "Bash", "Docker", "Docker Compose", "Git", "CI/CD", "AWS", "YAML"],
   },
 ];
 

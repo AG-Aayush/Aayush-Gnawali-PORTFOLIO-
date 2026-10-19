@@ -2,7 +2,7 @@
 export const personal = {
   name: "Aayush Gnawali",
   firstName: "Aayush",
-  role: "AI • DevOps • Backend",
+  role: "DevOps • Backend",
   location: "Kathmandu, Nepal",
   tagline:
     "I build AI-assisted systems and reliable backend platforms that are designed to scale and stay dependable.",
@@ -15,15 +15,14 @@ export const personal = {
   profilePictureDark: "/Aayush-profile.jpeg",
   resumeFile: "/Aayush_Gnawali_CV.pdf",
   availability: "open_to_work",
-  focusAreas: ["AI & RAG", "DevOps", "Backend Development", "School Management Systems"],
+  focusAreas: ["AI & RAG", "DevOps", "Backend Development", "System Design"],
 } as const;
 
 export const about = {
   story: [
-    "I'm a final-year B.E. Information Technology student at Everest Engineering College, and most of what I know about backend engineering I've learned by building things that had to actually stay up an API that handles real authentication, a monitoring dashboard that has to reflect real state, a system that's supposed to notice when something breaks.",
+    "Information Technology graduate with hands-on experience in Linux system administration, Docker, CI/CD automation, andAWS cloud deployment. Built automated deployment workflows using GitHub Actions, Docker, Amazon ECR, and EC2, with practical exposure to Bash scripting, SSH, infrastructure troubleshooting, monitoring, and security practices. Seeking a DevOps Trainee position to support development/staging environments, deployment workflows, cloud operations, and infrastructure automation while growing with an experienced DevOps team.",
     "That instinct is what pulled me toward DevOps and infrastructure. Writing an endpoint is one part of the job; making sure it deploys cleanly, recovers from failure, and can be reasoned about at 2am is the part I find genuinely interesting. I like the discipline of it Linux fundamentals, containerization, CI/CD, version control the unglamorous layer that everything else depends on.",
-    "In parallel, I've been building toward AI/ML: training models, deploying them behind real interfaces, and thinking about how machine learning systems get operated, not just built. I care about the same things in both worlds reliability, observability, and systems that fail predictably instead of silently.",
-    "I'm looking for remote opportunities where I can keep learning fast across backend, DevOps, and applied AI, and contribute to systems that other engineers can depend on.",
+    "I'm looking for opportunities where I can keep learning fast across backend, DevOps, and applied AI, and contribute to systems that other engineers can depend on.",
   ],
   highlights: [
     { label: "Focus", value: "Backend & Infrastructure" },
